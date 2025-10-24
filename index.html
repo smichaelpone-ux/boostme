@@ -80,36 +80,37 @@
         }
 
         .content {
-            padding: 30px 20px;
+            padding: 25px 20px;
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #667eea;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 600;
         }
 
         .feeling-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .feeling-btn {
-            padding: 15px;
+            padding: 12px 10px;
             border: 2px solid #e0e7ff;
             background: white;
-            border-radius: 15px;
-            font-size: 0.95rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
             color: #4a5568;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            min-height: 50px;
         }
 
         .feeling-btn:hover {
@@ -130,13 +131,13 @@
 
         textarea {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #e0e7ff;
-            border-radius: 15px;
+            border-radius: 12px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
             transition: border-color 0.3s ease;
         }
 
@@ -147,15 +148,15 @@
 
         .submit-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 15px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
@@ -624,7 +625,12 @@
             const logoImg = document.getElementById('logo-img');
             if (logoImg) {
                 // Use the cute bear design from the uploaded image concept
-                logoImg.src = 'Logo.png';
+                logoImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="200" height="200" fill="%234fd1c5" rx="40"/>
+                        <text x="100" y="130" font-size="120" text-anchor="middle" fill="white">🐻</text>
+                    </svg>
+                `);
             }
             
             // Feeling button selection
@@ -652,11 +658,11 @@
             down: {
                 emojis: ['🌈', '🌸', '🌻', '🦋', '☀️', '🌺'],
                 messages: [
-                    'I hear you, and I want you to know that it\'s completely okay to feel down sometimes. These feelings are temporary, like clouds passing in the sky - they may seem overwhelming right now, but they will move on. You\'ve overcome difficult days before, and you have the strength to get through this one too. Remember, healing isn\'t linear, and it\'s okay to take things one moment at a time. Your feelings are valid, and you don\'t have to rush through them. Be gentle with yourself today. You\'re doing better than you think, and every moment you keep going is an act of courage.',
-                    'Your feelings are valid, and it takes tremendous courage to acknowledge when you\'re struggling. This low moment doesn\'t define you - it\'s just a chapter, not your whole story. You have weathered storms before and emerged stronger, wiser, and more compassionate. Today might be tough, but you\'re tougher. I see your strength even when you can\'t see it yourself. You don\'t have to pretend to be okay when you\'re not. It\'s okay to rest, to ask for help, to take things slowly. You are allowed to have hard days. They don\'t make you weak - they make you human. And being human means you have the capacity to heal, to grow, and to find joy again.',
-                    'Some days are heavier than others, and that\'s part of being human. What you\'re feeling right now is temporary, even if it doesn\'t feel that way. The weight on your shoulders won\'t always be this heavy. You are more resilient than you realize, and this difficult moment will pass. Be patient and kind with yourself - you deserve the same compassion you would give to someone you love. Your worth isn\'t determined by your productivity or your mood. You are valuable simply because you exist. Take it one breath at a time if you need to. Small steps still count as progress, and you\'re already taking one by being here and seeking support.',
-                    'I see you, and your feelings matter deeply. It\'s okay to not be okay sometimes - in fact, acknowledging that takes strength. You don\'t have to have it all figured out right now. Just focus on getting through this moment, then the next. Small steps count, and you\'re already taking one by being here. I want you to know that you\'re not alone in this feeling, even when loneliness tries to convince you otherwise. Millions of people have felt what you\'re feeling and have made it through to brighter days. You will too. Your story isn\'t over - this is just a difficult chapter. Better days are waiting for you, and you are worthy of experiencing them.',
-                    'Feeling down is your heart telling you it needs some extra care right now. There\'s no shame in struggling - it means you\'re human, you feel deeply, and you\'re navigating real challenges. You\'ve made it through every difficult day so far - that\'s a 100% success rate. You\'re stronger than you know, even when you feel weak. Sometimes the bravest thing you can do is simply to keep going, to wake up and try again, to ask for help when you need it. I want you to know that your feelings are not a burden. They\'re a sign that you care, that you\'re alive, that you\'re real. And you deserve support, kindness, and hope - especially from yourself.'
+                    'I hear you, and what you\'re feeling is completely valid. These heavy feelings are temporary - like clouds, they will pass. You\'ve overcome difficult days before, and you have that same strength now. Take things one moment at a time and be gentle with yourself.',
+                    'Your feelings are valid, and acknowledging them takes real courage. This low moment is just one chapter, not your whole story. You don\'t have to pretend to be okay. Rest when you need to, and remember: having hard days doesn\'t make you weak, it makes you human.',
+                    'Some days are heavier than others - that\'s part of being human. The weight you\'re carrying won\'t always be this heavy. You\'re more resilient than you realize. Be patient and kind with yourself. Small steps still count as progress.',
+                    'I see you, and your feelings matter. It\'s okay to not be okay right now. Focus on getting through this moment, then the next. You\'re not alone in this feeling - better days are waiting for you, and you are worthy of experiencing them.',
+                    'Feeling down means your heart needs extra care right now. You\'ve made it through every difficult day so far - that\'s a 100% success rate. Sometimes the bravest thing is simply to keep going and ask for help when you need it. Your feelings are not a burden.'
                 ],
                 quotes: [
                     { text: 'Even the darkest night will end and the sun will rise.', author: 'Victor Hugo' },
@@ -687,14 +693,14 @@
                     'Do some gentle stretching or yoga'
                 ]
             },
-            unmotivated: {
+            motivated: {
                 emojis: ['⚡', '🔥', '💫', '⭐', '🎯', '🚀'],
                 messages: [
-                    'Feeling unmotivated is a sign that you might need to recharge, not push harder. It\'s your mind and body asking for a different kind of energy - maybe rest, maybe novelty, maybe connection. Listen to what you need. Start small - motivation often comes after you begin, not before. You don\'t need to climb the whole mountain today, just take the first step. And here\'s a secret: you don\'t need to feel motivated to take action. Discipline, curiosity, and tiny commitments can carry you when motivation won\'t. Be patient with yourself. Your energy will return. You\'re not lazy, you\'re not failing - you\'re human, and sometimes we need to rest before we can run again.',
-                    'Lack of motivation isn\'t laziness - it\'s often your body\'s way of saying it needs something different. Maybe rest, maybe a change of pace, maybe just a different approach to the same goal. The good news? Momentum builds momentum. Start with something tiny - so small it feels almost silly - and watch the energy follow. You don\'t need to feel ready to begin. You don\'t need to feel inspired. You just need to start, even imperfectly, even reluctantly. Action creates motivation more often than motivation creates action. Trust the process. Trust yourself. You have more strength than you feel right now, and taking even the smallest step proves it.',
-                    'You don\'t need to feel motivated to take action. In fact, action often creates motivation, not the other way around. Give yourself permission to start small and imperfect - messy action is still action. A tiny step forward is still progress, and that\'s what matters. Your motivation will return, but in the meantime, you can still move forward through commitment, curiosity, and small promises to yourself. You don\'t have to love what you\'re doing to do it. You don\'t have to feel energized to start. You just have to begin. And once you do, you might be surprised at how the energy follows. Be kind to yourself in this moment. You\'re doing more than you think.',
-                    'Your motivation will come back - it always does. It\'s not gone forever; it\'s just taking a break. Right now, focus on discipline over motivation. Do one small thing, celebrate it, and build from there. You\'re capable of so much more than you feel in this moment. Sometimes our brains lie to us about our capacity. Don\'t believe everything you think. You have accomplished difficult things before when you didn\'t feel like it. You can do it again. Small, consistent steps will take you further than sporadic bursts of motivation ever could. Trust the process. Trust your resilience. And remember: you don\'t need to feel good to do good things.',
-                    'Sometimes our motivation takes a break, and that\'s okay. You\'re not broken. You\'re not failing. You\'re experiencing something completely normal and human. What got you here won\'t always keep you going, and that\'s when it\'s time to try something different. Switch things up - change your environment, your approach, or your perspective. Reconnect with your deeper why - the reason this matters to you beyond the task itself. The spark is still in you; it just needs a little fuel. And that fuel might be rest, might be play, might be connection, might be just showing up and starting even when you don\'t feel like it. You\'ve got this. Your energy will return. Until then, give yourself grace.'
+                    'Feeling unmotivated is a sign you might need to recharge, not push harder. Start small - motivation often comes after you begin, not before. You don\'t need to feel motivated to take action. Discipline and tiny commitments can carry you when motivation won\'t.',
+                    'Lack of motivation isn\'t laziness - it\'s your body asking for something different. Momentum builds momentum. Start with something tiny and watch the energy follow. Action creates motivation more often than motivation creates action. Trust yourself.',
+                    'You don\'t need to feel motivated to take action. Give yourself permission to start small and imperfect. A tiny step forward is still progress. Your motivation will return, but in the meantime, you can move forward through commitment and small promises to yourself.',
+                    'Your motivation will come back - it always does. Right now, focus on discipline over motivation. Do one small thing, celebrate it, and build from there. You\'ve accomplished difficult things before when you didn\'t feel like it. You can do it again.',
+                    'Your motivation is just taking a break - you\'re not broken. Try something different: change your environment, reconnect with your deeper why, or just show up and start even when you don\'t feel like it. The spark is still in you; it just needs a little fuel.'
                 ],
                 quotes: [
                     { text: 'The secret of getting ahead is getting started.', author: 'Mark Twain' },
@@ -727,11 +733,11 @@
             encouragement: {
                 emojis: ['🌟', '💖', '🌈', '✨', '💪', '🎉'],
                 messages: [
-                    'You are capable of amazing things, even when you don\'t feel like it. The fact that you\'re here, seeking encouragement, shows strength and self-awareness that many people never develop. You\'ve already overcome 100% of your worst days - let that sink in. Every challenge you\'ve faced, every obstacle you\'ve encountered, every moment of doubt - you\'ve made it through all of them. That\'s not luck. That\'s resilience. That\'s you being stronger than you know. Keep going - your future self will thank you for not giving up today. The world needs what you have to offer. Your presence matters. Your efforts matter. You matter. And even on the days when you doubt yourself, please remember: you are enough, exactly as you are right now.',
-                    'I believe in you, and I want you to believe in you too. You have unique gifts and strengths that the world needs - talents and perspectives that only you can bring. Even on days when you doubt yourself, remember that you are enough exactly as you are. You don\'t need to be perfect. You don\'t need to have it all figured out. You just need to keep showing up, keep trying, keep learning. You\'ve got this. And on the days when you don\'t feel like you\'ve got this, remember that it\'s okay to ask for help, to lean on others, to take it one step at a time. You are worthy of support, encouragement, and success. You are worthy of your own kindness. Believe in yourself the way I believe in you right now.',
-                    'Every single day you show up is a victory, whether it feels like it or not. You are braver than you believe, stronger than you seem, and smarter than you think. Those aren\'t just words - they\'re truth. Keep moving forward, even if it\'s just one tiny step at a time. Progress isn\'t always visible, but that doesn\'t mean it\'s not happening. You\'re doing better than you realize. You\'re growing, learning, and becoming more resilient with every challenge you face. Give yourself credit for how far you\'ve come. Give yourself grace for the journey ahead. And remember: you don\'t have to be perfect to be making progress. You just have to keep going.',
-                    'You are a work in progress, and that\'s beautiful. Life isn\'t about reaching some final destination of perfection - it\'s about the journey, the growth, the learning. You don\'t need to have everything figured out. What matters is that you\'re trying, learning, and growing. Trust the journey and trust yourself. You\'re on the right path, even when it doesn\'t feel like it. Even when you stumble, even when you fall, even when you doubt - you\'re still moving forward. And that takes courage. Every day you wake up and try again is a testament to your strength. You are doing important work just by being you, by showing up, by continuing to hope and strive and believe that better days are possible. They are. And you\'re creating them.',
-                    'Your potential is limitless, and your story isn\'t over yet - not even close. The challenges you\'re facing right now are shaping you into someone even more incredible, more resilient, more compassionate. Keep your head up. Amazing things are coming your way, and you absolutely deserve them. You deserve joy, success, love, and peace. You deserve good things. Sometimes we forget that, especially when life gets hard. But your worthiness isn\'t determined by your circumstances or your achievements - it\'s inherent. You are worthy simply because you exist. And the world is better with you in it. Keep going. Keep believing. Keep being the amazing person you are.'
+                    'You are capable of amazing things. The fact that you\'re here shows strength and self-awareness. You\'ve overcome 100% of your worst days - that\'s resilience, not luck. Keep going - your future self will thank you for not giving up today.',
+                    'I believe in you, and you should too. You have unique gifts the world needs. You don\'t need to be perfect or have it all figured out. Just keep showing up, keep trying. You are worthy of support, encouragement, and your own kindness.',
+                    'Every day you show up is a victory. You are braver, stronger, and smarter than you think. Keep moving forward, even if it\'s just one tiny step. Progress isn\'t always visible, but it\'s happening. You\'re doing better than you realize.',
+                    'You are a work in progress, and that\'s beautiful. Life is about the journey, not reaching perfection. What matters is that you\'re trying, learning, and growing. Trust yourself - you\'re on the right path, even when it doesn\'t feel like it.',
+                    'Your potential is limitless, and your story isn\'t over. The challenges you face are shaping you into someone even more resilient and compassionate. You deserve joy, success, and peace - your worthiness is inherent. Keep going, keep believing.'
                 ],
                 quotes: [
                     { text: 'Believe you can and you\'re halfway there.', author: 'Theodore Roosevelt' },
@@ -764,11 +770,11 @@
             depressed: {
                 emojis: ['💙', '🤗', '🌸', '💜', '🕊️', '🌿'],
                 messages: [
-                    'What you\'re feeling is valid and real, and I want you to know that I see you. Depression can make everything feel heavy and hopeless, but please know that you\'re not alone in this darkness, and this feeling won\'t last forever. You are worthy of help, support, and happiness - not because of what you do or accomplish, but simply because you exist. Taking this small step today shows incredible courage. Reaching out, even in this small way, is an act of bravery. Please consider reaching out to a mental health professional who can provide the support you deserve. You don\'t have to face this alone. There are people who understand what you\'re going through and who have tools to help. You deserve care, treatment, and recovery. Please don\'t give up. Better days are possible.',
-                    'I want you to know that depression is an illness, not a weakness. It\'s not your fault, and you don\'t have to face it alone. This isn\'t something you can just "snap out of" or "think positively" through - it requires real support and often professional treatment. Your life has value beyond what depression tells you. You deserve support, care, and healing. Please reach out to a mental health professional - they have tools and treatments that can help. Therapy works. Medication works. Support works. You are worth the effort of getting better. You are worth fighting for. And while it might not feel like it right now, there is hope for feeling better. Hold on. Keep holding on. You matter more than you know.',
-                    'Living with depression takes tremendous strength, even when you don\'t feel strong. Just getting through each day is an accomplishment. You matter. Your feelings are valid, and there is hope for feeling better - real, genuine hope based on science and countless stories of recovery. Please consider talking to a doctor or therapist. Treatment works, and you deserve to feel well. You deserve to wake up without that heavy weight. You deserve to feel joy again, to laugh again, to feel like yourself again. Hold on. Things can get better, and with proper support, they will get better. You are not your depression. You are not your darkest thoughts. You are someone struggling with an illness, and that illness can be treated.',
-                    'Depression lies to you. It tells you things are hopeless, that you\'re alone, that nothing will help, that you\'re a burden. But these are not truths - they\'re symptoms of an illness that distorts your thinking. You are not broken beyond repair. You are not unlovable. You are not a burden. You are someone dealing with a real medical condition that deserves real treatment. With proper support and treatment, you can feel better. Please reach out to a mental health professional. You deserve care and recovery. There are people who want to help you, who specialize in helping people feel better. You don\'t have to do this alone. Please don\'t do this alone.',
-                    'I see you struggling, and I want you to know that what you\'re experiencing is a real illness that deserves real treatment and compassion. You are not weak for struggling. You are not failing. You are unwell, and wellness is possible - truly possible. Please connect with a mental health professional who can guide you toward feeling better. You don\'t have to live like this. There is help available. There is hope available. Recovery is possible. You deserve to feel better. You deserve support. You deserve to be here. Please reach out. Please hold on. The world needs you, even when depression tells you otherwise.'
+                    'What you\'re feeling is valid and real. Depression is heavy and hard, but you\'re not alone in this, and this feeling won\'t last forever. You are worthy of help and happiness. Please consider reaching out to a mental health professional - you don\'t have to face this alone.',
+                    'Depression is an illness, not a weakness. It\'s not your fault. You deserve support, care, and healing. Please reach out to a professional - therapy and treatment work. You are worth the effort of getting better. You are worth fighting for.',
+                    'Living with depression takes tremendous strength. Just getting through each day is an accomplishment. You matter, and there is hope for feeling better. Please talk to a doctor or therapist. Treatment works, and you deserve to feel well again.',
+                    'Depression lies to you - it says things are hopeless, that you\'re alone, that nothing will help. These are not truths, they\'re symptoms. You are not broken. With proper support and treatment, you can feel better. Please reach out. You don\'t have to do this alone.',
+                    'You\'re experiencing a real illness that deserves real treatment. You are not weak or failing - you are unwell, and wellness is possible. Please connect with a mental health professional. Recovery is possible. You deserve to feel better. Please hold on.'
                 ],
                 quotes: [
                     { text: 'You are not your illness. You have an individual story to tell. You have a name, a history, a personality. Staying yourself is part of the battle.', author: 'Julian Seifter' },
@@ -800,11 +806,11 @@
             anxious: {
                 emojis: ['🕊️', '🌊', '☁️', '🍃', '🧘', '🌙'],
                 messages: [
-                    'Anxiety can feel overwhelming, like you\'re drowning in what-ifs and worst-case scenarios. But I want you to know: you are safe in this moment. Right now, in this exact second, you are okay. Your feelings are valid - anxiety is real and it\'s challenging - but feelings don\'t define reality. You\'ve handled anxious moments before and you can handle this one too. Let\'s bring you back to the present, where you have control and where you are okay. Anxiety tries to pull you into an imagined future full of dangers that may never happen. Come back to now. Come back to your breath. Come back to this moment. You are safe. You are okay. This feeling will pass, just like all the other times. You\'re stronger than your anxiety.',
-                    'I know anxiety makes everything feel urgent and scary, but right now, in this exact moment, you are okay. Look around you. Notice your surroundings. You are safe. Your body is trying to protect you, even if the threat isn\'t real. It\'s doing what it thinks is best, but it\'s overreacting. Take a deep breath. You\'ve survived 100% of your anxious days. You can get through this one too. Anxiety lies about probability and danger. It makes unlikely things feel certain. But you have the power to question those thoughts, to ground yourself in reality, to come back to the present moment where you have control. You\'re going to be okay. Breathe. Ground yourself. You\'ve got this.',
-                    'Anxiety lies to you about danger that isn\'t there. It activates your fight-or-flight system for situations that don\'t require it. Your racing thoughts and physical symptoms are uncomfortable, but they\'re not dangerous. You are safe. You\'re experiencing uncomfortable feelings, but feelings aren\'t facts. Focus on what you can control right now: your breath, your body, this present moment. You\'re going to be okay. This wave of anxiety will pass, just like every other one has. You are not your anxiety. You are someone experiencing anxiety. There\'s a difference. And with practice, with tools, with support, you can learn to manage these feelings. You don\'t have to let them control you.',
-                    'What you\'re feeling is anxiety, not reality. There\'s an important difference. Your body\'s alarm system is too sensitive right now, but you can calm it down. You have more control than anxiety wants you to believe. Ground yourself in the present. Notice five things you can see. Four things you can touch. Three things you can hear. Come back to now. You are safe, and this feeling will pass. It always does. Anxiety feeds on "what if" thinking - what if something bad happens? But here\'s the truth: most of what we worry about never happens. And even when challenges come, you handle them. You\'ve been handling them your whole life. Trust yourself. Trust your resilience. You\'re going to be okay.',
-                    'Anxiety wants you to believe the worst-case scenario is certain. It\'s not. You are experiencing uncomfortable feelings and intrusive thoughts, but feelings aren\'t facts and thoughts aren\'t predictions. Come back to this moment, to your breath, to the truth that you are okay right now. Anxiety can\'t hurt you, even though it feels terrible. You\'re safe. The physical symptoms you\'re experiencing are just your body\'s stress response - uncomfortable but not dangerous. You can ride this wave. You\'ve ridden waves like this before. Breathe slowly. Ground yourself in the present. Challenge the catastrophic thoughts. Ask yourself: What evidence do I have that this will happen? What\'s more likely? You can handle this. You\'re stronger than anxiety tells you.'
+                    'Anxiety can feel overwhelming, but right now, in this moment, you are safe. Your feelings are valid, but feelings don\'t define reality. Let\'s bring you back to the present. Come back to your breath. This feeling will pass, just like all the other times.',
+                    'Right now, in this exact moment, you are okay. Your body is trying to protect you from a threat that isn\'t real. Take a deep breath. You\'ve survived 100% of your anxious days. Focus on what you can control: your breath, your body, this moment.',
+                    'Anxiety lies about danger that isn\'t there. Your symptoms are uncomfortable, but they\'re not dangerous. You are safe. Focus on the present moment where you have control. This wave will pass, just like every other one has. You are not your anxiety.',
+                    'What you\'re feeling is anxiety, not reality. Ground yourself in the present. Notice five things you can see, four you can touch, three you can hear. Come back to now. You are safe, and this feeling will pass. Trust your resilience.',
+                    'You\'re experiencing anxiety right now, and while it\'s very uncomfortable, it\'s not dangerous. This is your body\'s alarm system being too sensitive. Breathe. Ground yourself. This will pass. You have the tools to calm yourself. You\'ve done it before.'
                 ],
                 quotes: [
                     { text: 'You don\'t have to control your thoughts. You just have to stop letting them control you.', author: 'Dan Millman' },
@@ -836,11 +842,11 @@
             motivated: {
                 emojis: ['🚀', '💪', '🔥', '⚡', '🏆', '🎯'],
                 messages: [
-                    'That\'s wonderful! This motivated energy is your superpower right now - harness it wisely. Channel it into meaningful action, but also remember to pace yourself for the long haul. Your enthusiasm can move mountains, but sustainable progress comes from consistent, balanced effort over time. Celebrate this feeling! It\'s a gift. Use it to build momentum for the days ahead, but also use it to establish systems and habits that will carry you forward even when motivation wanes. Because here\'s the truth: motivation is wonderful, but discipline is what creates lasting change. Build both. Right now, you have the energy - use it to create the structure that will support you later. You\'re feeling powerful, and you should. This is your moment to make things happen!',
-                    'Yes! This is your moment! That fire inside you is real and powerful - I can feel it in your words. Use it to make meaningful progress, but remember that consistency beats intensity every single time. Set yourself up for long-term success by channeling this energy into habits and systems you can maintain. You\'re on fire right now - and that\'s amazing - but the goal is to keep that fire burning steadily over time, not to burn out in a burst of intensity. Use today\'s energy to do the important work, yes, but also to build the foundation for tomorrow. Create routines. Establish accountability. Document your why so you remember it on harder days. You\'ve got incredible energy right now - invest it wisely in your future self.',
-                    'I love this energy! You\'re feeling motivated, and that\'s a precious gift. Don\'t waste it. Capture this momentum by taking action right now - don\'t wait for the feeling to fade, because feelings always change. Write down your goals while they feel exciting. Start that project while you have the energy. Make that call while you feel confident. Your motivated self is creating opportunities for your future self. The actions you take today, powered by this energy, will create results that keep you motivated tomorrow. So move. Act. Do. But also be strategic. Use this energy not just to work hard, but to work smart. Set up systems. Create habits. Build momentum that will carry you forward long after this feeling fades.',
-                    'This motivated feeling is gold - liquid gold - and you need to use it before it evaporates. But here\'s what most people miss: the key isn\'t just to work hard while you feel motivated. It\'s to set up systems that will keep you going even when motivation wanes. And it will wane - that\'s normal. That\'s human. Build habits. Create accountability. Document your why - the deep reason this matters to you beyond the surface level. You\'re in the driver\'s seat right now, feeling powerful and capable. So decide where you want to go and start moving. But also drop breadcrumbs for your future self. Leave notes. Create structures. Make it easier for yourself to keep going when this feeling fades. You\'re doing great. Keep that energy, but channel it wisely.',
-                    'Your motivation is contagious and powerful! I\'m energized just hearing about it. This is the time to dream big and act boldly. Take advantage of this energy to do the hard things, start new projects, push boundaries, and challenge yourself. Step outside your comfort zone. Take risks. Go after what you want. But - and this is important - remember that motivation starts the journey, but discipline finishes it. Build both. Use your current motivation to establish the discipline that will carry you forward. Create the habits. Build the systems. Establish the routines. So that when motivation takes a vacation (and it will), you have discipline to keep you going. You\'re feeling incredible right now. That\'s powerful. Use it not just for today, but to build a better tomorrow.'
+                    'This motivated energy is your superpower right now! Channel it into meaningful action, but remember to pace yourself. Use this energy to build momentum and establish systems that will support you when motivation wanes. Motivation starts the journey, but discipline finishes it.',
+                    'Yes! This is your moment! Use this fire to make progress, but remember that consistency beats intensity. Channel today\'s energy into habits and systems you can maintain. Create routines and document your why for harder days ahead.',
+                    'I love this energy! Don\'t waste it - capture this momentum by taking action right now. Write down your goals while they feel exciting. Use this energy to work smart: set up systems, create habits, and build momentum that will carry you forward.',
+                    'This motivated feeling is gold - use it before it fades. But don\'t just work hard - set up systems that will keep you going when motivation wanes. Build habits, create accountability, and make it easier for your future self to keep going.',
+                    'Your motivation is powerful! This is the time to dream big and act boldly. But remember: motivation starts the journey, discipline finishes it. Use your energy to establish the habits and routines that will carry you forward when motivation takes a break.'
                 ],
                 quotes: [
                     { text: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
@@ -873,11 +879,11 @@
             frustrated: {
                 emojis: ['😤', '🌋', '💢', '🔥', '⚡', '🎯'],
                 messages: [
-                    'Frustration is a sign that you care deeply about something. It means you have standards, expectations, and a vision for how things should be. That\'s not weakness - that\'s passion. But right now, that passion feels blocked, and that\'s incredibly difficult. I want you to know that your frustration is valid. The obstacles you\'re facing are real. And it\'s okay to feel angry about them. Take a breath. This feeling is temporary, even though it feels all-consuming right now. You have the power to channel this energy into positive change, one step at a time.',
-                    'I hear your frustration, and I understand how exhausting it is to feel stuck or blocked when you\'re trying so hard. Frustration often comes when there\'s a gap between where you are and where you want to be, or when things aren\'t going according to plan. That gap isn\'t a reflection of your worth or capability - it\'s just information about what needs to change. You\'re not failing. You\'re encountering resistance, and that\'s different. Take a moment to acknowledge what you\'ve already tried. Give yourself credit for your efforts. Then, when you\'re ready, you can approach this obstacle from a new angle. You\'ve got more options than frustration is letting you see right now.',
-                    'Frustration builds when we feel powerless, when our efforts don\'t match our results, or when obstacles keep appearing. But here\'s the truth: this feeling, as intense as it is, contains valuable information. It\'s telling you something needs to change - maybe your approach, maybe your expectations, maybe your timeline, or maybe you need support. And that\'s okay. You don\'t have to figure it all out while you\'re this frustrated. First, release some of this pressure. Scream into a pillow, go for a run, write it all out. Then, when you\'re calmer, you can problem-solve more effectively. Your frustration doesn\'t mean you\'re on the wrong path - it just means the path is harder than expected. And you\'re strong enough to navigate it.',
-                    'I can feel the intensity of your frustration, and I want you to know it makes complete sense. When we care about outcomes and face repeated obstacles, frustration is a natural response. But staying in this state drains your energy and clouds your problem-solving ability. So let\'s work on releasing some of this pressure. You\'re allowed to be frustrated. You\'re allowed to be angry. And you\'re also allowed to take a break, to walk away temporarily, to ask for help, to try a completely different approach. Frustration tells us "this way isn\'t working" - it doesn\'t tell us "nothing will work." There\'s a way through this, even if you can\'t see it right now. Sometimes the breakthrough comes right after we stop forcing and start allowing.',
-                    'Your frustration is speaking loudly right now, and it\'s drowning out everything else. I get it. When things don\'t go as planned, when people don\'t understand, when obstacles pile up, frustration can feel overwhelming. But you\'re more than this feeling. Underneath the frustration is someone who cares, who tries, who hasn\'t given up despite how hard this is. That\'s strength. Now, let\'s use that strength wisely. Frustration can be fuel or it can be poison - the difference is in how you channel it. Take control of what you can control. Let go of what you can\'t. Adjust your expectations where needed. Ask for help where possible. And most importantly, be kind to yourself. You\'re doing your best in a difficult situation, and that counts for something.'
+                    'Frustration is a sign you care deeply about something - that\'s passion, not weakness. Your frustration is valid. Take a breath. This feeling is temporary. You have the power to channel this energy into positive change, one step at a time.',
+                    'I hear your frustration. That gap between where you are and where you want to be is real. You\'re not failing - you\'re encountering resistance. Give yourself credit for your efforts, then approach this obstacle from a new angle when you\'re ready.',
+                    'Frustration contains valuable information - something needs to change. First, release some pressure: scream, run, write it out. Then problem-solve more effectively. This doesn\'t mean you\'re on the wrong path - just that it\'s harder than expected.',
+                    'Your frustration makes complete sense. You\'re allowed to be frustrated and angry. You\'re also allowed to take a break, ask for help, or try a different approach. There\'s a way through this, even if you can\'t see it right now.',
+                    'Underneath the frustration is someone who cares and hasn\'t given up. That\'s strength. Channel that energy wisely. Take control of what you can control, let go of what you can\'t, and be kind to yourself. You\'re doing your best in a difficult situation.'
                 ],
                 quotes: [
                     { text: 'Frustration is the first step towards improvement.', author: 'Unknown' },
@@ -910,11 +916,11 @@
             hopeful: {
                 emojis: ['🌟', '🌅', '✨', '🌈', '🦋', '🌻'],
                 messages: [
-                    'Hope is a powerful force, and I can feel it radiating from you right now. This feeling - this sense that good things are possible, that the future holds promise, that things can get better - this is what carries us through difficult times and propels us toward our dreams. Hold onto this feeling. Nurture it. Let it guide your decisions and fuel your actions. Hope isn\'t naive optimism; it\'s courageous faith in possibility. You\'re choosing to believe in better days, and that choice itself is transformative. Your hope can light the way not just for you, but for others around you. You\'re in a beautiful place right now - use this energy to plant seeds that will grow into the future you\'re hoping for.',
-                    'I love that you\'re feeling hopeful right now. Hope is the foundation of all positive change. It\'s the spark that says "things can be different" before we even know how they\'ll change. This feeling you have isn\'t just wishful thinking - it\'s your spirit recognizing potential and possibility. It\'s your heart opening to the future. Nurture this hope like a tender flame. Protect it with action, feed it with small wins, surround it with people who believe in possibilities too. Hope can seem fragile, but it\'s actually one of the strongest forces we have. It\'s kept humanity moving forward through every dark time. Your hope matters. Your belief in better matters. Let it guide you toward the life you\'re envisioning.',
-                    'Hope is beautiful because it exists despite evidence, despite obstacles, despite how hard things might be right now. You\'re choosing hope, and that choice is incredibly powerful. Hope doesn\'t mean ignoring reality - it means believing that reality can change. It means trusting that effort matters, that tomorrow can be different from today, that your dreams are worth pursuing. This hopeful energy you\'re feeling? Channel it. Use it to set goals, to make plans, to take the first steps toward what you\'re hoping for. Hope becomes more powerful when it\'s married with action. You don\'t just have to hope for better - you can create better. And you\'re already starting by choosing this mindset.',
-                    'Feeling hopeful is a gift, especially if you\'ve been through difficult times. It means you haven\'t let hardship steal your ability to believe in good things. That takes strength. That takes resilience. Hold this feeling close, but also remember: hope works best when combined with action. Use this optimistic energy to make moves toward your goals. Write down what you\'re hoping for. Break it into steps. Start taking those steps, even small ones. Hope gives us direction; action gives us momentum. Together, they\'re unstoppable. You\'re in a powerful position right now - you can see possibilities, you believe in them, and you have the energy to pursue them. That\'s rare and valuable. Use it wisely.',
-                    'Your hope is contagious, and the world needs more of it. In a time when it\'s easy to be cynical or discouraged, you\'re choosing to believe in better. That\'s not weakness or naivety - that\'s courage. Hope takes bravery because it means being vulnerable to disappointment, yet believing anyway. It means planting seeds without guaranteed harvests. It means trying again after failing. And you\'re doing it. This hopeful state you\'re in is powerful fuel. Use it to inspire yourself and others. Use it to take bold actions. Use it to stay committed when things get hard. Because they will get hard - hope doesn\'t eliminate obstacles, but it gives us the strength to face them. You\'re seeing light at the end of the tunnel. Walk toward it. You\'re going to make it.'
+                    'Hope is powerful, and I can feel it from you right now. This sense that good things are possible - this is what carries us through difficult times. Hold onto this feeling. Hope isn\'t naive optimism; it\'s courageous faith in possibility. Use this energy to plant seeds for your future.',
+                    'I love that you\'re feeling hopeful. Hope is the foundation of positive change - it\'s your spirit recognizing potential. Nurture this hope with action, feed it with small wins. Hope is one of the strongest forces we have. Let it guide you toward the life you\'re envisioning.',
+                    'Hope exists despite obstacles and evidence - you\'re choosing to believe reality can change. This is powerful. Channel this energy into goals and plans. Hope becomes even more powerful when married with action. You can create better, not just hope for it.',
+                    'Feeling hopeful, especially after difficult times, shows strength and resilience. Hold this feeling close, but combine hope with action. Write down what you\'re hoping for, break it into steps, and start taking them. Hope gives direction; action gives momentum.',
+                    'Your hope is courage in action - believing in better despite the risk of disappointment. This hopeful energy is powerful fuel. Use it to inspire yourself, take bold actions, and stay committed when things get hard. You\'re seeing light at the end of the tunnel. Walk toward it.'
                 ],
                 quotes: [
                     { text: 'Hope is being able to see that there is light despite all of the darkness.', author: 'Desmond Tutu' },

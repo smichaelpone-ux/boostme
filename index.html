@@ -624,7 +624,12 @@
             const logoImg = document.getElementById('logo-img');
             if (logoImg) {
                 // Use the cute bear design from the uploaded image concept
-                logoImg.src = 'logo.png';
+                logoImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="200" height="200" fill="%234fd1c5" rx="40"/>
+                        <text x="100" y="130" font-size="120" text-anchor="middle" fill="white">🐻</text>
+                    </svg>
+                `);
             }
             
             // Feeling button selection

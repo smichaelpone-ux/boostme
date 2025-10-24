@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoostMe - Your Personal Wellness Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            background: white;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 25px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px 20px;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            color: #667eea;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feeling-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .feeling-btn {
+            padding: 12px 10px;
+            border: 2px solid #e0e7ff;
+            background: white;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 50px;
+        }
+
+        .feeling-btn:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+            transform: translateY(-2px);
+        }
+
+        .feeling-btn.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .custom-input-section {
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .result-section {
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .result-card h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-card p, .result-card ul {
+            color: #4a5568;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .result-card ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .result-card li {
+            margin-bottom: 8px;
+        }
+
+        .quote-box {
+            background: white;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #4a5568;
+        }
+
+        .quote-author {
+            text-align: right;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 350px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .svg-container {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .svg-container svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel-caption {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            backdrop-filter: blur(10px);
+            max-width: 90%;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 0;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            gap: 10px;
+        }
+
+        .carousel-btn {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .carousel-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        .loading-spinner {
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .action-feedback {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .action-feedback h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .action-feedback p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: white;
+        }
+
+        .action-feedback .emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .audio-player {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .audio-info {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .audio-title {
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .audio-status {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 3px;
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #f7fafc;
+            transform: translateY(-2px);
+        }
+
+        /* Floating Audio Bubble */
+        .floating-audio-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-audio-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .floating-audio-bubble.playing {
+            animation: pulse-ring 1.5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+
+        .floating-audio-bubble .icon {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .audio-tooltip {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .floating-audio-bubble:hover .audio-tooltip {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .emoji {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .feeling-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="BoostMe Bear" id="logo-img">
+            </div>
+            <h1>BoostMe</h1>
+            <p class="tagline">Your personal wellness companion</p>
+        </div>
+
+        <div class="content">
+            <div id="input-section">
+                <h2 class="section-title">How are you feeling today?</h2>
+                
+                <div class="feeling-buttons">
+                    <button class="feeling-btn" data-feeling="down">
+                        <span class="emoji">😔</span> Down
+                    </button>
+                    <button class="feeling-btn" data-feeling="anxious">
+                        <span class="emoji">😰</span> Anxious
+                    </button>
+                    <button class="feeling-btn" data-feeling="depressed">
+                        <span class="emoji">😞</span> Depressed
+                    </button>
+                    <button class="feeling-btn" data-feeling="frustrated">
+                        <span class="emoji">😤</span> Frustrated
+                    </button>
+                    <button class="feeling-btn" data-feeling="motivated">
+                        <span class="emoji">💪</span> Motivated
+                    </button>
+                    <button class="feeling-btn" data-feeling="hopeful">
+                        <span class="emoji">🌟</span> Hopeful
+                    </button>
+                </div>
+
+                <div class="custom-input-section">
+                    <h2 class="section-title">Or tell us more about how you&apos;re feeling</h2>
+                    <textarea id="custom-feeling" placeholder="Share what's on your mind... (optional)"></textarea>
+                </div>
+
+                <button class="submit-btn" onclick="generateBoost()">Get My Boost 🚀</button>
+            </div>
+
+            <div id="result-section" class="result-section">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFeeling = null;
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isPlaying = false;
+
+        // Initialize button listeners when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set a cute bear emoji/SVG as logo
+            const logoImg = document.getElementById('logo-img');
+            if (logoImg) {
+                // Use the cute bear design from the uploaded image concept
+                logoImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
+                    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="200" height="200" fill="%234fd1c5" rx="40"/>
+                        <text x="100" y="130" font-size="120" text-anchor="middle" fill="white">🐻</text>
+                    </svg>
+                `);
+            }
+            
+            // Feeling button selection
+            document.querySelectorAll('.feeling-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.feeling-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedFeeling = this.getAttribute('data-feeling');
+                });
+            });
+        });
+
+        // Function to get random item from array
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        // Function to get random items from array (without duplicates)
+        function getRandomItems(array, count) {
+            const shuffled = [...array].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        const responseVariations = {
+            down: {
+                emojis: ['🌈', '🌸', '🌻', '🦋', '☀️', '🌺'],
+                messages: [
+                    'I hear you, and what you\'re feeling is completely valid. These heavy feelings are temporary - like clouds, they will pass. You\'ve overcome difficult days before, and you have that same strength now. Take things one moment at a time and be gentle with yourself.',
+                    'Your feelings are valid, and acknowledging them takes real courage. This low moment is just one chapter, not your whole story. You don\'t have to pretend to be okay. Rest when you need to, and remember: having hard days doesn\'t make you weak, it makes you human.',
+                    'Some days are heavier than others - that\'s part of being human. The weight you\'re carrying won\'t always be this heavy. You\'re more resilient than you realize. Be patient and kind with yourself. Small steps still count as progress.',
+                    'I see you, and your feelings matter. It\'s okay to not be okay right now. Focus on getting through this moment, then the next. You\'re not alone in this feeling - better days are waiting for you, and you are worthy of experiencing them.',
+                    'Feeling down means your heart needs extra care right now. You\'ve made it through every difficult day so far - that\'s a 100% success rate. Sometimes the bravest thing is simply to keep going and ask for help when you need it. Your feelings are not a burden.'
+                ],
+                quotes: [
+                    { text: 'Even the darkest night will end and the sun will rise.', author: 'Victor Hugo' },
+                    { text: 'The sun himself is weak when he first rises, and gathers strength and courage as the day gets on.', author: 'Charles Dickens' },
+                    { text: 'You may have to fight a battle more than once to win it.', author: 'Margaret Thatcher' },
+                    { text: 'Every storm runs out of rain.', author: 'Maya Angelou' },
+                    { text: 'This too shall pass.', author: 'Persian Proverb' },
+                    { text: 'Stars can\'t shine without darkness.', author: 'Unknown' }
+                ],
+                immediateActions: [
+                    'Take three slow, deep breaths right now - in through your nose, out through your mouth',
+                    'Stand up and stretch your arms above your head for 10 seconds',
+                    'Drink a glass of water mindfully, focusing on each sip',
+                    'Close your eyes and count slowly to ten',
+                    'Smile gently, even if you don\'t feel like it - it sends signals to your brain',
+                    'Place your hand on your heart and take a moment to acknowledge your feelings'
+                ],
+                laterActions: [
+                    'Take a short walk outside and breathe in some fresh air',
+                    'Listen to your favorite uplifting music or a comfort playlist',
+                    'Reach out to someone you trust and share how you\'re feeling',
+                    'Watch a favorite comfort movie or TV show',
+                    'Take a warm bath or shower to relax',
+                    'Write in a journal about what you\'re feeling',
+                    'Pet an animal or look at cute animal videos',
+                    'Make yourself a comforting hot drink',
+                    'Look at old photos that bring back happy memories',
+                    'Do some gentle stretching or yoga'
+                ]
+            },
+            motivated: {
+                emojis: ['⚡', '🔥', '💫', '⭐', '🎯', '🚀'],
+                messages: [
+                    'Feeling unmotivated is a sign you might need to recharge, not push harder. Start small - motivation often comes after you begin, not before. You don\'t need to feel motivated to take action. Discipline and tiny commitments can carry you when motivation won\'t.',
+                    'Lack of motivation isn\'t laziness - it\'s your body asking for something different. Momentum builds momentum. Start with something tiny and watch the energy follow. Action creates motivation more often than motivation creates action. Trust yourself.',
+                    'You don\'t need to feel motivated to take action. Give yourself permission to start small and imperfect. A tiny step forward is still progress. Your motivation will return, but in the meantime, you can move forward through commitment and small promises to yourself.',
+                    'Your motivation will come back - it always does. Right now, focus on discipline over motivation. Do one small thing, celebrate it, and build from there. You\'ve accomplished difficult things before when you didn\'t feel like it. You can do it again.',
+                    'Your motivation is just taking a break - you\'re not broken. Try something different: change your environment, reconnect with your deeper why, or just show up and start even when you don\'t feel like it. The spark is still in you; it just needs a little fuel.'
+                ],
+                quotes: [
+                    { text: 'The secret of getting ahead is getting started.', author: 'Mark Twain' },
+                    { text: 'You don\'t have to be great to start, but you have to start to be great.', author: 'Zig Ziglar' },
+                    { text: 'Action is the foundational key to all success.', author: 'Pablo Picasso' },
+                    { text: 'The way to get started is to quit talking and begin doing.', author: 'Walt Disney' },
+                    { text: 'Motivation is what gets you started. Habit is what keeps you going.', author: 'Jim Ryun' },
+                    { text: 'A journey of a thousand miles begins with a single step.', author: 'Lao Tzu' }
+                ],
+                immediateActions: [
+                    'Do 10 jumping jacks or stretch for 30 seconds right now',
+                    'Set a timer for just 5 minutes and start your task - that\'s all',
+                    'Stand up and change your physical position or location',
+                    'Take three energizing deep breaths and clap your hands',
+                    'Write down just ONE thing you\'ll do in the next 10 minutes',
+                    'Splash cold water on your face to wake up your senses'
+                ],
+                laterActions: [
+                    'Break your task into tiny, manageable 5-minute chunks',
+                    'Change your environment - work from a different room or location',
+                    'Reward yourself after completing small tasks',
+                    'Write down why this task matters to you personally',
+                    'Put on energizing music that pumps you up',
+                    'Call a friend and tell them what you\'re going to accomplish',
+                    'Visualize how good you\'ll feel when you\'ve completed the task',
+                    'Remove distractions - put your phone in another room',
+                    'Make your task more enjoyable - add music, better lighting, or a nice drink'
+                ]
+            },
+            encouragement: {
+                emojis: ['🌟', '💖', '🌈', '✨', '💪', '🎉'],
+                messages: [
+                    'You are capable of amazing things. The fact that you\'re here shows strength and self-awareness. You\'ve overcome 100% of your worst days - that\'s resilience, not luck. Keep going - your future self will thank you for not giving up today.',
+                    'I believe in you, and you should too. You have unique gifts the world needs. You don\'t need to be perfect or have it all figured out. Just keep showing up, keep trying. You are worthy of support, encouragement, and your own kindness.',
+                    'Every day you show up is a victory. You are braver, stronger, and smarter than you think. Keep moving forward, even if it\'s just one tiny step. Progress isn\'t always visible, but it\'s happening. You\'re doing better than you realize.',
+                    'You are a work in progress, and that\'s beautiful. Life is about the journey, not reaching perfection. What matters is that you\'re trying, learning, and growing. Trust yourself - you\'re on the right path, even when it doesn\'t feel like it.',
+                    'Your potential is limitless, and your story isn\'t over. The challenges you face are shaping you into someone even more resilient and compassionate. You deserve joy, success, and peace - your worthiness is inherent. Keep going, keep believing.'
+                ],
+                quotes: [
+                    { text: 'Believe you can and you\'re halfway there.', author: 'Theodore Roosevelt' },
+                    { text: 'You are braver than you believe, stronger than you seem, and smarter than you think.', author: 'A.A. Milne' },
+                    { text: 'The only impossible journey is the one you never begin.', author: 'Tony Robbins' },
+                    { text: 'You yourself, as much as anybody in the entire universe, deserve your love and affection.', author: 'Buddha' },
+                    { text: 'Believe in yourself. You are braver than you think, more talented than you know, and capable of more than you imagine.', author: 'Roy T. Bennett' },
+                    { text: 'Success is not final, failure is not fatal: it is the courage to continue that counts.', author: 'Winston Churchill' }
+                ],
+                immediateActions: [
+                    'Look in the mirror and say "I am enough" out loud right now',
+                    'Stand in a power pose for 30 seconds - hands on hips, chest out',
+                    'Write down one thing you\'re proud of accomplishing today',
+                    'Take a deep breath and say "I\'ve got this" with confidence',
+                    'Give yourself a hug and acknowledge you\'re doing your best',
+                    'Close your eyes and visualize yourself succeeding for 20 seconds'
+                ],
+                laterActions: [
+                    'Write down three things you\'re grateful for today',
+                    'Recall a time when you overcame a challenge - you can do it again',
+                    'Set one small, achievable goal for today and celebrate when you reach it',
+                    'Do something kind for yourself - you deserve it',
+                    'Make a list of your strengths and accomplishments',
+                    'Share something you\'re proud of with someone who cares',
+                    'Create a victory playlist with songs that make you feel powerful',
+                    'Write a letter to your future self describing your current goals',
+                    'Celebrate a small win from today, no matter how tiny'
+                ]
+            },
+            depressed: {
+                emojis: ['💙', '🤗', '🌸', '💜', '🕊️', '🌿'],
+                messages: [
+                    'What you\'re feeling is valid and real. Depression is heavy and hard, but you\'re not alone in this, and this feeling won\'t last forever. You are worthy of help and happiness. Please consider reaching out to a mental health professional - you don\'t have to face this alone.',
+                    'Depression is an illness, not a weakness. It\'s not your fault. You deserve support, care, and healing. Please reach out to a professional - therapy and treatment work. You are worth the effort of getting better. You are worth fighting for.',
+                    'Living with depression takes tremendous strength. Just getting through each day is an accomplishment. You matter, and there is hope for feeling better. Please talk to a doctor or therapist. Treatment works, and you deserve to feel well again.',
+                    'Depression lies to you - it says things are hopeless, that you\'re alone, that nothing will help. These are not truths, they\'re symptoms. You are not broken. With proper support and treatment, you can feel better. Please reach out. You don\'t have to do this alone.',
+                    'You\'re experiencing a real illness that deserves real treatment. You are not weak or failing - you are unwell, and wellness is possible. Please connect with a mental health professional. Recovery is possible. You deserve to feel better. Please hold on.'
+                ],
+                quotes: [
+                    { text: 'You are not your illness. You have an individual story to tell. You have a name, a history, a personality. Staying yourself is part of the battle.', author: 'Julian Seifter' },
+                    { text: 'There is hope, even when your brain tells you there isn\'t.', author: 'John Green' },
+                    { text: 'Your illness does not define you. Your strength and courage do.', author: 'Unknown' },
+                    { text: 'You are not alone in this. You are seen. I am with you. You are not alone.', author: 'Shonda Rhimes' },
+                    { text: 'The only way out is through.', author: 'Robert Frost' },
+                    { text: 'It is during our darkest moments that we must focus to see the light.', author: 'Aristotle' }
+                ],
+                immediateActions: [
+                    'Take one slow, deep breath and acknowledge you\'re doing your best',
+                    'Drink a glass of water right now - hydration helps',
+                    'Open your curtains or turn on a light to brighten your space',
+                    'Text or message one person to let them know you\'re struggling',
+                    'Place your hand on your heart and say "I deserve help and healing"',
+                    'Stand up and move to a different room or space if possible'
+                ],
+                laterActions: [
+                    'If you\'re in crisis, please call 988 (US Suicide & Crisis Lifeline) or your local emergency services',
+                    'Contact a mental health professional or your doctor today',
+                    'Try to maintain basic self-care: shower, eat something nutritious',
+                    'Stay connected with at least one person, even if it\'s just a text',
+                    'Take your medications as prescribed, or call your doctor if you need adjustments',
+                    'Join a support group - online or in person',
+                    'Go outside for just 5 minutes, even if it\'s just to your doorstep',
+                    'Write down one small thing you can do today, and try to do it'
+                ]
+            },
+            anxious: {
+                emojis: ['🕊️', '🌊', '☁️', '🍃', '🧘', '🌙'],
+                messages: [
+                    'Anxiety can feel overwhelming, but right now, in this moment, you are safe. Your feelings are valid, but feelings don\'t define reality. Let\'s bring you back to the present. Come back to your breath. This feeling will pass, just like all the other times.',
+                    'Right now, in this exact moment, you are okay. Your body is trying to protect you from a threat that isn\'t real. Take a deep breath. You\'ve survived 100% of your anxious days. Focus on what you can control: your breath, your body, this moment.',
+                    'Anxiety lies about danger that isn\'t there. Your symptoms are uncomfortable, but they\'re not dangerous. You are safe. Focus on the present moment where you have control. This wave will pass, just like every other one has. You are not your anxiety.',
+                    'What you\'re feeling is anxiety, not reality. Ground yourself in the present. Notice five things you can see, four you can touch, three you can hear. Come back to now. You are safe, and this feeling will pass. Trust your resilience.',
+                    'You\'re experiencing anxiety right now, and while it\'s very uncomfortable, it\'s not dangerous. This is your body\'s alarm system being too sensitive. Breathe. Ground yourself. This will pass. You have the tools to calm yourself. You\'ve done it before.'
+                ],
+                quotes: [
+                    { text: 'You don\'t have to control your thoughts. You just have to stop letting them control you.', author: 'Dan Millman' },
+                    { text: 'Anxiety is a thin stream of fear trickling through the mind. If encouraged, it cuts a channel into which all other thoughts are drained.', author: 'Arthur Somers Roche' },
+                    { text: 'Nothing diminishes anxiety faster than action.', author: 'Walter Anderson' },
+                    { text: 'You are not your anxiety. It is something you experience. You are the sky. Everything else is just weather.', author: 'Unknown' },
+                    { text: 'Almost everything will work again if you unplug it for a few minutes, including you.', author: 'Anne Lamott' },
+                    { text: 'Worry does not empty tomorrow of its sorrow, it empties today of its strength.', author: 'Corrie Ten Boom' }
+                ],
+                immediateActions: [
+                    'Try box breathing right now: Breathe in for 4, hold for 4, out for 4, hold for 4',
+                    'Name 5 things you can see around you right now',
+                    'Press your feet firmly into the floor and notice the sensation',
+                    'Splash cold water on your face or hold an ice cube',
+                    'Tense all your muscles for 5 seconds, then release completely',
+                    'Place one hand on your chest and one on your belly, breathe slowly'
+                ],
+                laterActions: [
+                    'Practice the 5-4-3-2-1 technique: 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste',
+                    'Write down your worries, then challenge each one with evidence',
+                    'Go for a walk and describe everything you see out loud',
+                    'Listen to calming music or nature sounds',
+                    'Use a stress ball or fidget toy to redirect nervous energy',
+                    'Practice progressive muscle relaxation',
+                    'Call someone you trust and talk about anything except your anxiety',
+                    'Engage in a grounding activity: count backwards from 100 by 7s'
+                ]
+            },
+            motivated: {
+                emojis: ['🚀', '💪', '🔥', '⚡', '🏆', '🎯'],
+                messages: [
+                    'This motivated energy is your superpower right now! Channel it into meaningful action, but remember to pace yourself. Use this energy to build momentum and establish systems that will support you when motivation wanes. Motivation starts the journey, but discipline finishes it.',
+                    'Yes! This is your moment! Use this fire to make progress, but remember that consistency beats intensity. Channel today\'s energy into habits and systems you can maintain. Create routines and document your why for harder days ahead.',
+                    'I love this energy! Don\'t waste it - capture this momentum by taking action right now. Write down your goals while they feel exciting. Use this energy to work smart: set up systems, create habits, and build momentum that will carry you forward.',
+                    'This motivated feeling is gold - use it before it fades. But don\'t just work hard - set up systems that will keep you going when motivation wanes. Build habits, create accountability, and make it easier for your future self to keep going.',
+                    'Your motivation is powerful! This is the time to dream big and act boldly. But remember: motivation starts the journey, discipline finishes it. Use your energy to establish the habits and routines that will carry you forward when motivation takes a break.'
+                ],
+                quotes: [
+                    { text: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
+                    { text: 'Success is not the key to happiness. Happiness is the key to success.', author: 'Albert Schweitzer' },
+                    { text: 'The future belongs to those who believe in the beauty of their dreams.', author: 'Eleanor Roosevelt' },
+                    { text: 'Don\'t watch the clock; do what it does. Keep going.', author: 'Sam Levenson' },
+                    { text: 'What you do today can improve all your tomorrows.', author: 'Ralph Marston' },
+                    { text: 'The only limit to our realization of tomorrow is our doubts of today.', author: 'Franklin D. Roosevelt' }
+                ],
+                immediateActions: [
+                    'Write down your #1 priority right now and commit to starting it',
+                    'Do the hardest thing on your to-do list first - right now',
+                    'Set a timer for 25 minutes and enter deep focus mode immediately',
+                    'Stand up and declare out loud what you\'re going to accomplish today',
+                    'Send a message to someone about your goal to create accountability',
+                    'Take 30 seconds to visualize yourself completing your main goal'
+                ],
+                laterActions: [
+                    'Write down your top 3 priorities and tackle them in order',
+                    'Share your goals with someone who will support and encourage you',
+                    'Create a vision board or list of what you want to achieve',
+                    'Use this energy to build a positive habit or routine',
+                    'Help or encourage someone else - multiply the positive energy',
+                    'Set a challenging but achievable goal for this week',
+                    'Schedule your week to maintain this momentum',
+                    'Learn something new related to your goals',
+                    'Create an accountability system or find an accountability partner'
+                ]
+            },
+            frustrated: {
+                emojis: ['😤', '🌋', '💢', '🔥', '⚡', '🎯'],
+                messages: [
+                    'Frustration is a sign you care deeply about something - that\'s passion, not weakness. Your frustration is valid. Take a breath. This feeling is temporary. You have the power to channel this energy into positive change, one step at a time.',
+                    'I hear your frustration. That gap between where you are and where you want to be is real. You\'re not failing - you\'re encountering resistance. Give yourself credit for your efforts, then approach this obstacle from a new angle when you\'re ready.',
+                    'Frustration contains valuable information - something needs to change. First, release some pressure: scream, run, write it out. Then problem-solve more effectively. This doesn\'t mean you\'re on the wrong path - just that it\'s harder than expected.',
+                    'Your frustration makes complete sense. You\'re allowed to be frustrated and angry. You\'re also allowed to take a break, ask for help, or try a different approach. There\'s a way through this, even if you can\'t see it right now.',
+                    'Underneath the frustration is someone who cares and hasn\'t given up. That\'s strength. Channel that energy wisely. Take control of what you can control, let go of what you can\'t, and be kind to yourself. You\'re doing your best in a difficult situation.'
+                ],
+                quotes: [
+                    { text: 'Frustration is the first step towards improvement.', author: 'Unknown' },
+                    { text: 'Every problem is a gift—without problems we would not grow.', author: 'Anthony Robbins' },
+                    { text: 'When you get into a tight place and everything goes against you, never give up then, for that is just the time that the tide will turn.', author: 'Harriet Beecher Stowe' },
+                    { text: 'Sometimes when you\'re in a dark place you think you\'ve been buried, but you\'ve actually been planted.', author: 'Christine Caine' },
+                    { text: 'The gem cannot be polished without friction, nor man perfected without trials.', author: 'Chinese Proverb' },
+                    { text: 'Obstacles don\'t have to stop you. If you run into a wall, don\'t turn around and give up. Figure out how to climb it, go through it, or work around it.', author: 'Michael Jordan' }
+                ],
+                immediateActions: [
+                    'Take three deep breaths and physically shake out your body to release tension',
+                    'Write down what\'s frustrating you in angry, uncensored words - then tear it up',
+                    'Do 20 jumping jacks or run in place to burn off the frustration energy',
+                    'Scream into a pillow or in your car - release it physically',
+                    'Splash cold water on your face to reset your nervous system',
+                    'Step away from the situation for 5 minutes - literally walk away'
+                ],
+                laterActions: [
+                    'Identify what you CAN control and what you can\'t - focus only on what you can change',
+                    'Talk to someone who gets it and will validate your frustration',
+                    'Break the problem into smaller, more manageable pieces',
+                    'Try a completely different approach - what you\'re doing isn\'t working',
+                    'Take a real break - sometimes stepping back brings clarity',
+                    'Ask yourself: "Is this expectation realistic?" and adjust if needed',
+                    'Journal about what this frustration is teaching you',
+                    'Get physical - exercise, dance, punch a punching bag',
+                    'Make a list of what you\'ve already tried and brainstorm new options'
+                ]
+            },
+            hopeful: {
+                emojis: ['🌟', '🌅', '✨', '🌈', '🦋', '🌻'],
+                messages: [
+                    'Hope is powerful, and I can feel it from you right now. This sense that good things are possible - this is what carries us through difficult times. Hold onto this feeling. Hope isn\'t naive optimism; it\'s courageous faith in possibility. Use this energy to plant seeds for your future.',
+                    'I love that you\'re feeling hopeful. Hope is the foundation of positive change - it\'s your spirit recognizing potential. Nurture this hope with action, feed it with small wins. Hope is one of the strongest forces we have. Let it guide you toward the life you\'re envisioning.',
+                    'Hope exists despite obstacles and evidence - you\'re choosing to believe reality can change. This is powerful. Channel this energy into goals and plans. Hope becomes even more powerful when married with action. You can create better, not just hope for it.',
+                    'Feeling hopeful, especially after difficult times, shows strength and resilience. Hold this feeling close, but combine hope with action. Write down what you\'re hoping for, break it into steps, and start taking them. Hope gives direction; action gives momentum.',
+                    'Your hope is courage in action - believing in better despite the risk of disappointment. This hopeful energy is powerful fuel. Use it to inspire yourself, take bold actions, and stay committed when things get hard. You\'re seeing light at the end of the tunnel. Walk toward it.'
+                ],
+                quotes: [
+                    { text: 'Hope is being able to see that there is light despite all of the darkness.', author: 'Desmond Tutu' },
+                    { text: 'Once you choose hope, anything is possible.', author: 'Christopher Reeve' },
+                    { text: 'Hope is the thing with feathers that perches in the soul and sings the tune without the words and never stops at all.', author: 'Emily Dickinson' },
+                    { text: 'We must accept finite disappointment, but never lose infinite hope.', author: 'Martin Luther King Jr.' },
+                    { text: 'Hope is important because it can make the present moment less difficult to bear.', author: 'Thich Nhat Hanh' },
+                    { text: 'Everything that is done in this world is done by hope.', author: 'Martin Luther' }
+                ],
+                immediateActions: [
+                    'Write down three things you\'re hopeful about right now',
+                    'Close your eyes and visualize your hopeful future for 30 seconds',
+                    'Share your hopeful feeling with someone - spread the positivity',
+                    'Take one small action right now toward something you\'re hoping for',
+                    'Make a list of evidence that supports your hope - why it\'s realistic',
+                    'Smile at yourself in the mirror and say "Good things are coming"'
+                ],
+                laterActions: [
+                    'Create a vision board or write a detailed description of what you\'re hoping for',
+                    'Set concrete goals that align with your hopes and dreams',
+                    'Connect with others who share your optimism and vision',
+                    'Start a gratitude journal to reinforce positive thinking',
+                    'Take a meaningful step toward one of your hoped-for outcomes',
+                    'Read inspiring stories of people who achieved what seemed impossible',
+                    'Make plans - turn hope into strategy',
+                    'Practice daily affirmations that reinforce your hopeful mindset',
+                    'Help someone else find hope - teaching reinforces your own belief'
+                ]
+            }
+        };
+
+        function generateBoost() {
+            const customFeeling = document.getElementById('custom-feeling').value.trim();
+            
+            if (!selectedFeeling && !customFeeling) {
+                alert('Please select a feeling or tell us how you\'re feeling!');
+                return;
+            }
+
+            // Use selected feeling or default to 'encouragement' if only custom text
+            const feeling = selectedFeeling || 'hopeful';
+            const variations = responseVariations[feeling];
+            
+            // Generate unique response each time with 3 actions (1 immediate, 2 later)
+            const immediateAction = getRandomItem(variations.immediateActions);
+            const laterActions = getRandomItems(variations.laterActions, 2);
+            const allActions = [immediateAction, ...laterActions];
+            
+            const response = {
+                emoji: getRandomItem(variations.emojis),
+                message: getRandomItem(variations.messages),
+                quote: getRandomItem(variations.quotes),
+                actions: allActions
+            };
+
+            // Custom one-liners based on feeling
+            const oneLiners = {
+                down: 'You\'re Going Through a Tough Time',
+                anxious: 'Let\'s Find Your Calm Together',
+                depressed: 'You Deserve Support and Care',
+                frustrated: 'Channel This Energy Into Change',
+                motivated: 'Harness Your Powerful Energy',
+                hopeful: 'Your Hope Will Light the Way'
+            };
+
+            const oneLiner = oneLiners[feeling] || 'You Are Not Alone';
+
+            const resultHTML = `
+                <div class="result-card">
+                    <h3><span class="emoji">${response.emoji}</span> ${oneLiner}</h3>
+                    <p>${response.message}</p>
+                    ${customFeeling ? `<p style="margin-top: 15px; padding: 15px; background: white; border-radius: 10px;"><strong>You shared:</strong> "${customFeeling}"<br><br>Thank you for opening up. Your feelings are valid and acknowledged.</p>` : ''}
+                </div>
+
+                <div class="result-card">
+                    <h3><span class="emoji">🎨</span> Your Visual Journey</h3>
+                    <p style="color: #718096; font-size: 0.9rem; margin-bottom: 15px;">Swipe through these images - each one building a story to uplift and inspire you</p>
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carousel-track">
+                            <!-- Images will be inserted here -->
+                        </div>
+                        <div class="carousel-dots" id="carousel-dots"></div>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn" onclick="previousSlide()">‹</button>
+                        <button class="carousel-btn" onclick="nextSlide()">›</button>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h3><span class="emoji">💭</span> Quote to Remember</h3>
+                    <div class="quote-box">
+                        "${response.quote.text}"
+                        <div class="quote-author">— ${response.quote.author}</div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h3><span class="emoji">✨</span> Actions You Can Take</h3>
+                    <ul>
+                        ${response.actions.map(action => `<li>${action}</li>`).join('')}
+                    </ul>
+                    <button class="submit-btn" id="action-complete-btn" onclick="confirmAction()" style="margin-top: 20px;">
+                        ✓ I've Taken Action
+                    </button>
+                    <div id="action-feedback" class="action-feedback hidden"></div>
+                </div>
+
+                <button class="back-btn" onclick="goBack()">🔄 Check In Again</button>
+            `;
+
+            // Store the response for audio playback
+            window.currentResponse = response;
+            window.currentSlide = 0;
+
+            document.getElementById('input-section').classList.add('hidden');
+            document.getElementById('result-section').innerHTML = resultHTML;
+            document.getElementById('result-section').style.display = 'block';
+
+            // Show floating audio bubble
+            showFloatingAudioBubble();
+
+            // Generate AI carousel images based on feeling
+            generateCarouselImages(feeling);
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleAudio() {
+            const playIcon = document.getElementById('play-icon');
+            const audioStatus = document.getElementById('audio-status');
+
+            if (isPlaying) {
+                speechSynthesis.cancel();
+                playIcon.textContent = '▶️';
+                audioStatus.textContent = 'Tap to listen';
+                isPlaying = false;
+            } else {
+                const response = window.currentResponse;
+                const customFeeling = document.getElementById('custom-feeling').value.trim();
+
+                let textToSpeak = `Here's your personal boost. ${response.message}. `;
+                
+                if (customFeeling) {
+                    textToSpeak += `You shared: ${customFeeling}. Thank you for opening up. `;
+                }
+
+                textToSpeak += `Remember this quote: ${response.quote.text} by ${response.quote.author}. `;
+                textToSpeak += `Here are some actions you can take: `;
+                response.actions.forEach((action, index) => {
+                    textToSpeak += `${index + 1}. ${action}. `;
+                });
+
+                currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
+                currentUtterance.rate = 0.9;
+                currentUtterance.pitch = 1;
+                currentUtterance.volume = 1;
+
+                currentUtterance.onstart = function() {
+                    playIcon.textContent = '⏸️';
+                    audioStatus.textContent = 'Playing...';
+                    isPlaying = true;
+                };
+
+                currentUtterance.onend = function() {
+                    playIcon.textContent = '▶️';
+                    audioStatus.textContent = 'Tap to listen again';
+                    isPlaying = false;
+                };
+
+                speechSynthesis.speak(currentUtterance);
+            }
+        }
+
+        const carouselStories = {
+            down: {
+                prompts: [
+                    'A person standing at the edge of a cliff watching a magnificent sunrise breaking through storm clouds, rays of golden light piercing the darkness',
+                    'A lone tree on a hill bending in a fierce storm but not breaking, roots firmly grounded, sunset breaking through clouds',
+                    'A butterfly emerging from its chrysalis on a rain-soaked branch with morning light, water droplets glistening',
+                    'A mountain climber reaching out their hand to help another climber up a steep cliff, golden hour lighting',
+                    'A phoenix rising from ashes with brilliant orange and gold flames, wings spread wide against dramatic sky',
+                    'A path through a dark forest opening up to a bright meadow filled with wildflowers and sunlight',
+                    'A lighthouse beam cutting through dense fog at night, guiding ships safely to shore'
+                ],
+                captions: [
+                    'Even in your darkest moments, dawn is coming. The sun always rises after the longest night.',
+                    'You may bend under pressure, but your roots run deep. You are stronger than the storm.',
+                    'Transformation is painful, but beautiful. What you\'re going through is creating something magnificent.',
+                    'You don\'t have to climb alone. Reach out - there are hands ready to help pull you up.',
+                    'From your lowest point, you will rise again. Every ending contains the seed of a new beginning.',
+                    'The darkness you\'re walking through will open into light. Keep moving forward, even slowly.',
+                    'You are the lighthouse for yourself. Your inner strength can guide you through any fog.'
+                ]
+            },
+            unmotivated: {
+                prompts: [
+                    'A rocket launching at dawn with massive plumes of fire and smoke, representing the power of taking action',
+                    'A person pushing a giant boulder up a hill with determination, first step glowing with light',
+                    'A match being struck in darkness, single flame illuminating the surrounding area',
+                    'A sprinter in starting position on track, muscles coiled with energy ready to explode forward',
+                    'A seed cracking open with a green shoot emerging from dark soil into sunlight',
+                    'A person standing at the base of stairs leading up into clouds with the first step glowing',
+                    'A steam engine building momentum, wheels beginning to turn, smoke billowing'
+                ],
+                captions: [
+                    'The hardest part is starting. Once you ignite, momentum carries you forward.',
+                    'Every journey begins with the first push. That one step contains infinite potential.',
+                    'You don\'t need a blazing fire to start - just one small spark of action.',
+                    'Your energy is coiled within you, ready to release. You just need to start.',
+                    'Growth begins beneath the surface. Plant the seed of action today.',
+                    'Don\'t look at the whole staircase. Just take the first glowing step.',
+                    'Momentum builds slowly, then powerfully. Start moving, even if it\'s slow at first.'
+                ]
+            },
+            frustrated: {
+                prompts: [
+                    'A person pushing against a heavy door that is beginning to open',
+                    'A boxer hitting a punching bag with intensity and focus',
+                    'A dam holding back water with cracks beginning to show light through',
+                    'A key turning in a stubborn lock that is finally starting to give',
+                    'Lightning striking a mountain, powerful energy being released',
+                    'A volcano with pressure building, ready to transform',
+                    'A clenched fist slowly opening to reveal light inside'
+                ],
+                captions: [
+                    'The door is heavy, but it\'s starting to move. Keep pushing - breakthrough is near.',
+                    'Release the energy. Channel your frustration into powerful, focused action.',
+                    'The pressure you feel is creating cracks for light to enter. Change is coming.',
+                    'The lock is stubborn, but persistence wins. Keep trying - it will turn.',
+                    'Your intensity is power. Direct it with purpose and watch obstacles shatter.',
+                    'What feels like destructive pressure is actually transformative force building.',
+                    'Open your grip. Release the tension. There\'s light waiting inside your frustration.'
+                ]
+            },
+            hopeful: {
+                prompts: [
+                    'A sunrise breaking over horizon with brilliant colors filling the sky',
+                    'A seed sprouting through concrete, reaching toward sunlight',
+                    'A rainbow appearing after a storm, bright and full of promise',
+                    'A lighthouse on shore with its beam shining across calm waters',
+                    'Butterflies emerging from chrysalis in golden morning light',
+                    'A path through trees opening to reveal bright meadow ahead',
+                    'Stars appearing in evening sky, one by one lighting up the darkness'
+                ],
+                captions: [
+                    'Every sunrise is proof that darkness ends. Your dawn is breaking.',
+                    'Even concrete can\'t stop growth when hope pushes through. You\'re unstoppable.',
+                    'After every storm comes beauty. Your rainbow is forming now.',
+                    'Your hope is a lighthouse guiding you through uncertainty to safe shores.',
+                    'Beautiful transformations are happening. Your wings are forming.',
+                    'The path ahead is opening up. Keep walking toward the light you see.',
+                    'One by one, points of light appear. Hope illuminates even the darkest night.'
+                ]
+            },
+            encouragement: {
+                prompts: [
+                    'A person standing triumphantly on a mountain peak with arms raised, overlooking vast landscape bathed in sunset',
+                    'A lion walking confidently through tall grass with the sun behind creating powerful silhouette',
+                    'Hands releasing a flock of white doves into bright blue sky',
+                    'A lighthouse standing strong against massive crashing waves in a storm',
+                    'A person with arms outstretched facing the sunrise on mountaintop, light rays emanating around them',
+                    'A tree with roots showing above ground reaching deep while branches reach towards starry sky',
+                    'An eagle soaring high above mountains with wings fully spread in golden sunlight'
+                ],
+                captions: [
+                    'You\'ve already climbed so far. Look how much you\'ve accomplished. You belong at the summit.',
+                    'Walk with confidence. You have the heart of a lion and the courage to match.',
+                    'Release your doubts and watch your dreams take flight. You are capable of soaring.',
+                    'Stand strong. Like the lighthouse, you are built to withstand any storm that comes.',
+                    'Embrace your full potential. You are meant to shine brightly for the world to see.',
+                    'You are deeply rooted and reaching high. Both strength and growth live within you.',
+                    'Rise above your circumstances. You have wings - it\'s time to use them.'
+                ]
+            },
+            depressed: {
+                prompts: [
+                    'A gentle hand reaching down into darkness to help another hand reach up towards light, warm golden glow',
+                    'A small candle flame burning steadily in complete darkness, creating a warm glow with flowers nearby',
+                    'A person sitting in a dark room with a door slightly open showing bright light and nature beyond',
+                    'Two hands clasping each other firmly, one pulling the other up, warm light surrounding them',
+                    'A tunnel with person walking towards bright light at the end, flowers beginning to grow along the path',
+                    'A heart-shaped break in storm clouds revealing blue sky and sunlight streaming through',
+                    'A person holding a glowing light close to their chest in darkness, light growing brighter'
+                ],
+                captions: [
+                    'Help is available. You don\'t have to reach far - support is closer than you think.',
+                    'Even in complete darkness, hope flickers and stays alive. You are that flame.',
+                    'Healing is possible. The door to feeling better is open - you just need to walk through.',
+                    'You are not alone in this fight. Others are here to hold your hand and pull you toward light.',
+                    'The path through depression leads to light. Keep walking, even when it\'s hard. Flowers will grow.',
+                    'Behind every storm cloud, the sun is shining. Professional help can reveal that light.',
+                    'The light of hope lives within you. Nurture it with support, treatment, and compassion.'
+                ]
+            },
+            anxious: {
+                prompts: [
+                    'A serene lake perfectly reflecting mountains and clouds, glassy smooth water, everything still and calm',
+                    'A person sitting in meditation pose on a rock in middle of calm ocean at sunset',
+                    'Gentle waves rolling onto pristine beach with soft morning light, footprints being washed away',
+                    'A bamboo forest with straight tall stalks creating peaceful patterns, soft green light filtering',
+                    'A person floating peacefully in calm turquoise water under clear blue sky',
+                    'A misty mountain valley at dawn with soft pastel colors, everything quiet and still',
+                    'A zen garden with perfectly raked sand patterns and a single balanced stone stack'
+                ],
+                captions: [
+                    'Find your stillness. Like this lake, calm exists within you beneath the surface ripples.',
+                    'Ground yourself in this moment. Here and now, you are safe and at peace.',
+                    'Let your worries wash away like footprints in sand. They are temporary, not permanent.',
+                    'Stand tall and flexible like bamboo. Bend with the wind but remain rooted in calm.',
+                    'Surrender to peace. Float in the moment and trust that you are held safely.',
+                    'In the quiet morning of your mind, peace awaits. Breathe into the stillness.',
+                    'Balance is possible. One careful breath at a time, you can find your center.'
+                ]
+            },
+            motivated: {
+                prompts: [
+                    'A cheetah in full sprint across golden savanna at sunset, muscles defined, dust flying',
+                    'A surfer riding inside a massive perfect wave tube with sunlight streaming through water',
+                    'An athlete breaking through a finish line tape with arms raised in victory, confetti falling',
+                    'Lightning bolts striking a mountain peak at night with stars visible',
+                    'A person jumping between two cliffs over a chasm at golden hour, mid-leap',
+                    'Fireworks exploding over a cityscape at night in brilliant colors',
+                    'An arrow hitting the bullseye target, perfect precision and focus'
+                ],
+                captions: [
+                    'Channel your energy with focus and speed. You are built for this moment of action.',
+                    'Ride the wave of your motivation. Flow with your energy and make it count.',
+                    'Victory is within reach. Cross that finish line - you\'ve earned your triumph.',
+                    'Your energy is electric and powerful. Strike while the iron is hot - now is your time.',
+                    'Take the leap. Your motivated energy gives you wings to bridge any gap.',
+                    'Celebrate your drive and ambition. Let your energy explode into brilliant action.',
+                    'Focus your motivation like an arrow. Aim for your target and release with confidence.'
+                ]
+            }
+        };
+
+        // Extend prompts to 30+ for each feeling (adding more variations)
+        const extendedPrompts = {
+            down: [
+                ...carouselStories.down.prompts,
+                'A wilted flower being watered, petals beginning to lift toward the sun',
+                'A person hiking up a mountain trail, each step revealing more beautiful vista',
+                'A broken mosaic being carefully restored, gold filling the cracks making it more beautiful',
+                'A sunrise painting the sky in vivid oranges and pinks after a long dark night',
+                'A person opening curtains to let brilliant sunlight flood a dark room',
+                'A garden after rain with everything glistening, droplets catching rainbow light',
+                'A bridge emerging from fog, showing the way forward becoming clear',
+                'A caterpillar in chrysalis with light beginning to show transformation inside',
+                'A river flowing around obstacles, always finding its way forward',
+                'A person climbing out of a deep valley toward a mountain peak bathed in light',
+                'Storm clouds parting to reveal a brilliant double rainbow',
+                'A candle being lit from another candle, light spreading in darkness',
+                'A frozen lake beginning to thaw, cracks showing new life underneath',
+                'A person removing heavy stones from their backpack one by one',
+                'Dawn breaking over a cityscape, lights turning off as natural light takes over',
+                'A lighthouse keeper tending the flame, ensuring it never goes out',
+                'A bird trapped in a storm finding shelter and dry land',
+                'Seeds beneath snow beginning to sprout as winter ends',
+                'A heart monitor showing a steady, strong, healthy rhythm',
+                'A person reaching the end of a tunnel, seeing daylight ahead',
+                'Clouds rolling away from a mountain peak, revealing its majestic summit',
+                'A phoenix egg cracking open with golden light emanating from within',
+                'A compass needle finding true north, showing the way forward',
+                'Morning dew on spider web, each drop reflecting the rising sun'
+            ],
+            unmotivated: [
+                ...carouselStories.unmotivated.prompts,
+                'A cyclist starting to pedal up a hill, beginning the hard climb',
+                'An orchestra conductor raising the baton for the first powerful note',
+                'A painter making the first bold brushstroke on blank canvas',
+                'A writer typing the first word of their novel',
+                'An athlete lacing up running shoes, preparing for action',
+                'A chef sharpening knives before creating a masterpiece',
+                'A sculptor making the first chisel mark in marble',
+                'An archer drawing back the bowstring, ready to release',
+                'A surfer paddling out to catch the perfect wave',
+                'A mountain biker pushing off at the top of a trail',
+                'A pianist placing fingers on keys before playing',
+                'A gardener turning the first shovel of soil in spring',
+                'A runner taking position at the starting line',
+                'An inventor sketching the first prototype design',
+                'A child taking first steps, wobbly but determined',
+                'A sailboat catching the first gust of wind',
+                'A campfire catching from kindling to roaring flames',
+                'A car engine starting, ready to accelerate',
+                'A snowball beginning to roll downhill, gathering momentum',
+                'A clock\'s pendulum beginning to swing',
+                'A wind turbine blades starting to turn',
+                'A waterfall beginning its powerful cascade',
+                'A solar panel catching first rays of sunrise',
+                'A domino being tipped, starting chain reaction'
+            ],
+            encouragement: [
+                ...carouselStories.encouragement.prompts,
+                'A young sapling growing into a mighty oak tree over seasons',
+                'A diamond being formed under intense pressure deep underground',
+                'A butterfly landing on an outstretched hand, symbol of transformation',
+                'A marathon runner crossing the finish line after 26 miles',
+                'A graduate throwing cap in the air in celebration',
+                'A mountain goat confidently scaling a steep cliff face',
+                'A sunrise from space, Earth emerging from shadow into light',
+                'A conductor leading an orchestra to a powerful crescendo',
+                'A champion raising trophy overhead in victorious celebration',
+                'A teacher seeing student succeed, passing on wisdom',
+                'A rescue dog being adopted, finding its forever home',
+                'A person planting a tree that will outlive them',
+                'An artist unveiling their masterpiece to amazed audience',
+                'A bridge spanning impossible distance, connecting two sides',
+                'A flower blooming in crack of concrete, defying odds',
+                'A person helping elderly person cross street, simple kindness',
+                'A parent watching child take first steps',
+                'A mentor and mentee shaking hands, passing the torch',
+                'A team lifting each other up to reach a high goal',
+                'A book being opened, worlds of possibility revealed',
+                'A key unlocking a door to bright future',
+                'A mirror reflecting back true beauty and worth',
+                'Stars spelling out "You matter" in night sky',
+                'A trophy room full of achievements earned through perseverance'
+            ],
+            depressed: [
+                ...carouselStories.depressed.prompts,
+                'A therapist\'s office with comfortable chair and warm welcoming light',
+                'A phone with crisis hotline number displayed, ready to connect',
+                'A support group circle of people holding hands in solidarity',
+                'Medication bottles with hopeful sunrise in background',
+                'A journal and pen next to a cup of tea, tools for healing',
+                'A calendar marking therapy appointments, commitment to healing',
+                'A person hugging themselves with compassion',
+                'A doctor showing brain scans, explaining illness is treatable',
+                'A family member sitting beside someone, just being present',
+                'A helpline counselor listening with empathy and care',
+                'A mental health clinic sign with "Help Available" lit up',
+                'A recovery milestone being celebrated with small joy',
+                'A person taking first medication that will help them heal',
+                'A warm blanket wrapped around someone who needs comfort',
+                'A sunrise after the longest night, symbolizing hope',
+                'A depression support app showing encouraging daily message',
+                'A friend texting "I\'m here for you" and meaning it',
+                'A bridge connecting darkness to light, showing the journey',
+                'A life preserver being thrown to someone who needs it',
+                'A hospital with lights on, ready to help 24/7',
+                'A recovery journey map showing progress made',
+                'A person sleeping peacefully after finding right treatment',
+                'A thank you note to therapist who helped save a life',
+                'A before and after: darkness transforming into genuine smile'
+            ],
+            anxious: [
+                ...carouselStories.anxious.prompts,
+                'A person doing yoga on mountain top at peaceful sunrise',
+                'Meditation bells and singing bowls arranged serenely',
+                'A sleeping cat in a sunny window, completely at peace',
+                'A mother holding sleeping baby, ultimate calm and safety',
+                'A field of lavender swaying gently in a soft breeze',
+                'A Japanese tea ceremony, mindful and present',
+                'A person journaling fears and watching them lose power',
+                'A therapist teaching breathing techniques',
+                'Worry stones smooth from touch, tools for grounding',
+                'A hammock swaying gently between two trees',
+                'A peaceful forest path with dappled sunlight',
+                'A slow, deep breath visualization with calming colors',
+                'A anxiety relief app showing calming exercises',
+                'A comfort object bringing sense of safety',
+                'A cozy reading nook with soft lighting and blankets',
+                'A mindfulness bell, bringing attention to present moment',
+                'A safe space room filled with calming elements',
+                'Noise-canceling headphones playing nature sounds',
+                'A weighted blanket providing comforting pressure',
+                'A person\'s hands in prayer position, finding center',
+                'Essential oil diffuser creating calming aromatherapy',
+                'A gratitude journal filled with present moment blessings',
+                'A mindful walk with attention to each step',
+                'A heart rate slowing from fast to calm, panic passing'
+            ],
+            motivated: [
+                ...carouselStories.motivated.prompts,
+                'A startup team celebrating successful product launch',
+                'An entrepreneur signing major deal, dream realized',
+                'An athlete training at dawn, dedication visible',
+                'A student acing exam after intense studying',
+                'A person completing 365-day streak of positive habit',
+                'An artist selling first painting, dream coming true',
+                'A mountain biker conquering challenging trail',
+                'A chess player making winning move with confidence',
+                'A construction worker seeing building completed',
+                'A scientist making breakthrough discovery in lab',
+                'A musician performing to standing ovation',
+                'A coder debugging last error, program finally working',
+                'An inventor seeing their patent approved',
+                'A teacher watching all students pass the course',
+                'A chef receiving their first Michelin star',
+                'An author holding published book in hands',
+                'A filmmaker watching audience love their movie',
+                'An activist seeing positive change they fought for',
+                'A leader inspiring team to extraordinary achievement',
+                'A person crossing finish line of first marathon',
+                'An investor seeing business succeed',
+                'A gardener harvesting abundant vegetables they grew',
+                'A programmer deploying code that helps millions',
+                'A personal record being shattered, new heights reached'
+            ],
+            frustrated: [
+                'A person pushing against a heavy door that is beginning to open',
+                'A boxer hitting a punching bag with intensity and focus',
+                'A dam holding back water with cracks beginning to show light through',
+                'A key turning in a stubborn lock that is finally starting to give',
+                'Lightning striking a mountain, powerful energy being released',
+                'A volcano with pressure building, ready to transform',
+                'A clenched fist slowly opening to reveal light inside',
+                'A pressure cooker valve releasing steam safely',
+                'A diamond being formed under intense pressure',
+                'A wall with person finding doorway through',
+                'Knot being untangled thread by thread',
+                'Ice cracking with spring thaw beginning',
+                'Athlete breaking through pain barrier',
+                'Artist crumpling failed attempts before breakthrough',
+                'Puzzle piece finally clicking into place',
+                'Logjam breaking free, river flowing',
+                'Storm clouds gathering before rain release',
+                'Bow being drawn back, energy coiling',
+                'Traffic jam starting to clear ahead',
+                'Computer loading bar almost complete',
+                'Mountain climber past hardest section',
+                'Person breaking boards with focused strike',
+                'Balloon expanding before release',
+                'Spring compressed, ready to bounce',
+                'Sealed jar lid finally turning',
+                'Frozen door being forced open',
+                'Heavy object tipping past balance point',
+                'Knot loosening after persistent work',
+                'Blocked drain suddenly clearing',
+                'Stuck wheel finally turning'
+            ],
+            hopeful: [
+                'A sunrise breaking over horizon with brilliant colors filling the sky',
+                'A seed sprouting through concrete, reaching toward sunlight',
+                'A rainbow appearing after storm, bright and full of promise',
+                'A lighthouse on shore with beam shining across calm waters',
+                'Butterflies emerging from chrysalis in golden morning light',
+                'A path through trees opening to reveal bright meadow ahead',
+                'Stars appearing in evening sky, one by one lighting darkness',
+                'Dawn breaking through storm clouds',
+                'Flowers blooming in desert after rain',
+                'Northern lights dancing in Arctic sky',
+                'Child releasing balloon into clear sky',
+                'Horizon glowing with promise of new day',
+                'Candles being lit one by one',
+                'Rainbow bridge connecting two mountains',
+                'Sunrise reflecting on calm ocean',
+                'Seeds being planted in spring soil',
+                'Buds appearing on winter branches',
+                'Frost melting with morning warmth',
+                'Fog lifting to reveal beautiful valley',
+                'Moon illuminating night path forward',
+                'Fireflies lighting up summer evening',
+                'Window opening to reveal garden',
+                'Curtains pulled back, light flooding room',
+                'New leaves unfurling on branches',
+                'Bridge being built across canyon',
+                'Lighthouse beam cutting through fog',
+                'Balloon rising into clear sky',
+                'Snowdrop flowers pushing through snow',
+                'River flowing toward distant mountains',
+                'Door opening to sunlit room'
+            ]
+        };
+
+        const extendedCaptions = {
+            down: [
+                ...carouselStories.down.captions,
+                'Like this flower, you can bloom again. Nourish yourself with kindness and patience.',
+                'Each step up reveals more beauty ahead. Keep climbing - the view is worth it.',
+                'Your cracks don\'t make you broken. They make you more beautiful, stronger, unique.',
+                'After every long night comes a glorious sunrise. Your dawn is coming.',
+                'Let the light in. Pull back the curtains on your pain and allow healing to enter.',
+                'After the storm comes growth. You\'re being watered, not destroyed.',
+                'The way forward will become clear. Trust that the fog will lift.',
+                'Transformation happens in darkness. What\'s happening inside you is beautiful.',
+                'Keep flowing forward. Life finds a way around every obstacle.',
+                'The climb is hard, but the summit of healing awaits you at the top.',
+                'After the storm, beauty emerges. Your rainbow is forming.',
+                'Your light can spark others\', and others\' light can spark yours. Connection heals.',
+                'Beneath the frozen surface, life is preparing to burst forth. Spring is coming.',
+                'Release the weight you\'ve been carrying. You don\'t have to hold it all.',
+                'Darkness gives way to light. It\'s the natural order of things.',
+                'Keep your light burning. The world needs your brightness.',
+                'Find shelter, rest, and regain your strength. You will fly again.',
+                'Growth is happening beneath the surface. Trust the process.',
+                'You are alive. You are here. That is enough for today.',
+                'The end of the tunnel is closer than you think. Keep moving toward the light.',
+                'The peak of your pain doesn\'t last forever. Clarity is coming.',
+                'From your ashes, something magnificent will rise. This isn\'t the end.',
+                'You know your direction now. Follow it with confidence.',
+                'Every drop of your tears reflects the light. You contain multitudes of beauty.'
+            ],
+            unmotivated: [
+                ...carouselStories.unmotivated.captions,
+                'The hill is steep, but you\'ve climbed before. Start pedaling.',
+                'The first note begins the symphony. Make your move.',
+                'Every masterpiece starts with one bold stroke. Make yours now.',
+                'Write one word. Then another. Soon you\'ll have a story.',
+                'Lace up. Stand up. Show up. That\'s all it takes to start.',
+                'Preparation is action. You\'re already beginning by getting ready.',
+                'The first mark in marble reveals what was always there. Begin.',
+                'Pull back. Aim. Release. Your shot is ready.',
+                'Paddle out. The perfect wave is waiting for your effort.',
+                'Push off. Gravity and momentum will help from there.',
+                'Place your fingers down. The music exists in your movement.',
+                'Turn the soil. Plant the seeds. Growth follows action.',
+                'Take your position. The race starts with readiness.',
+                'Sketch it out. Every invention began as a drawing.',
+                'Take the first step, even if you wobble. Walking follows.',
+                'Catch the wind. Movement creates more movement.',
+                'From small kindling comes roaring fire. Start small.',
+                'Turn the key. The journey begins with ignition.',
+                'Start rolling. Momentum will build as you go.',
+                'One swing starts a thousand. Begin the motion.',
+                'When wind comes, be ready to turn. Position yourself.',
+                'Let gravity help you. Begin the descent.',
+                'Harness the light. Energy follows positioning.',
+                'Tip the first domino. Watch everything else follow.'
+            ],
+            encouragement: [
+                ...carouselStories.encouragement.captions,
+                'From small beginnings come great things. You are growing magnificently.',
+                'Pressure creates diamonds. What you\'re enduring is making you precious.',
+                'Transformation is complete. Spread your wings - you\'ve earned them.',
+                'You\'ve gone the distance. The finish line is just the beginning.',
+                'Celebrate your achievements. You\'ve earned every success you\'ve gained.',
+                'Climb with confidence. You are built for this challenge.',
+                'You are a light in the darkness. Never underestimate your importance.',
+                'You bring harmony to chaos. Your presence creates beauty.',
+                'You\'ve won. Raise your victory high - you deserve this moment.',
+                'Your wisdom changes lives. Never doubt your impact.',
+                'You\'ve found where you belong. You are exactly where you need to be.',
+                'Your legacy will outlive you. What you do matters forever.',
+                'Your creation is valuable. Share your gifts with the world.',
+                'You connect impossible things. Your presence builds bridges.',
+                'You bloom despite the odds. Your resilience is remarkable.',
+                'Your kindness ripples outward. Small acts create big change.',
+                'Your growth inspires others. Keep showing what\'s possible.',
+                'You guide others to their potential. Your influence is powerful.',
+                'Together you rise. Collaboration multiplies success.',
+                'Endless possibilities await you. Open yourself to them.',
+                'You hold the key to your future. Use it wisely.',
+                'You are more beautiful than you know. See your true reflection.',
+                'You matter. The universe itself declares it.',
+                'Your journey proves your worth. Every trophy is earned.'
+            ],
+            depressed: [
+                ...carouselStories.depressed.captions,
+                'Professional help works. This space is waiting to welcome you.',
+                'Help is one call away. Reaching out is strength, not weakness.',
+                'You are not alone in this fight. Others understand and care.',
+                'Treatment exists. Medicine can restore the balance you\'ve lost.',
+                'Small tools can help. Use every resource available to heal.',
+                'Commitment to healing is powerful. Each appointment is a victory.',
+                'Give yourself the love you deserve. You are worth holding.',
+                'This is medical, not moral. Illness deserves treatment.',
+                'Presence is powerful. You don\'t need fixing, just support.',
+                'Someone cares enough to listen. Your voice matters.',
+                'Help is always available. The lights are always on for you.',
+                'Every small step forward counts. Celebrate your progress.',
+                'This medication could change everything. Hope exists in science.',
+                'Comfort is available. Accept the warmth offered to you.',
+                'The night is long, but morning comes. Hold on.',
+                'Technology can connect you to help. Use these tools.',
+                'You are worth checking on. True friends show up.',
+                'There is a path through. Others have walked it before you.',
+                'Rescue is available. Reach out and grab it.',
+                'Help never sleeps. Support is available right now.',
+                'Look how far you\'ve come. Progress is real.',
+                'This first step toward treatment is brave. Keep going.',
+                'You deserve comfort and care. Accept these small kindnesses.',
+                'Transformation is possible. This is your before. After is coming.'
+            ],
+            anxious: [
+                ...carouselStories.anxious.captions,
+                'Find your inner stillness. Peace lives within you always.',
+                'Sacred rituals bring calm. Create your own peace practice.',
+                'Be present like this cat. Anxiety lives in future; peace in now.',
+                'You are safe. Feel the certainty of being held.',
+                'Nature\'s rhythm soothes the nervous system. Sway with life.',
+                'Slow down and be present. This moment is enough.',
+                'Write them down and watch fears shrink. They lose power.',
+                'Learn the techniques. Your breath is always available.',
+                'Hold something tangible. Ground yourself in the physical.',
+                'Surrender to rest. Release control and simply be.',
+                'Nature heals anxiety. Walk among the trees.',
+                'Breathe slowly and watch calm return. You have control.',
+                'Tools are available. Use them to find your peace.',
+                'Safety can be held. Keep your comfort close.',
+                'Create sanctuary. Your safe space is your power.',
+                'Return to now with each ring. The present is safe.',
+                'Surround yourself with calm. Your environment affects you.',
+                'Sometimes you need to block it out. That\'s okay.',
+                'Pressure can comfort. Let yourself be held.',
+                'Find your center through your body. Peace begins here.',
+                'Scent bypasses thought and calms the nervous system.',
+                'Count your blessings in this moment. Gratitude grounds.',
+                'Each step is this step. No further. Just here.',
+                'The storm passes. Your calm rhythm returns.'
+            ],
+            motivated: [
+                ...carouselStories.motivated.captions,
+                'Your team succeeds together. Shared victory is sweeter.',
+                'Dreams realized through action. You\'ve earned this.',
+                'Excellence requires dedication. Yours is showing.',
+                'Preparation meets opportunity. Your hard work paid off.',
+                'Consistency compounds. Look at your streak of success.',
+                'Your art has value. Someone sees its worth.',
+                'Challenge conquered through persistence. You did it.',
+                'Strategy plus confidence equals victory. Checkmate.',
+                'Brick by brick, you\'ve built something lasting.',
+                'Persistence yields discovery. Your "eureka" moment has arrived.',
+                'Your talent moved hearts. This ovation is for you.',
+                'Problem solved through determination. Your code works.',
+                'Innovation recognized. Your idea is valuable.',
+                'Your impact is measured in changed lives. Well done.',
+                'Excellence acknowledged. Your work stands among the best.',
+                'Your story is now told. You\'ve created something eternal.',
+                'Your vision brought to life. The audience feels it.',
+                'Your fight created change. Justice moved forward.',
+                'Leadership inspires greatness. Your team soars because of you.',
+                'Endurance tested and proven. You\'ve crossed the line.',
+                'Risk rewarded. Your investment is paying off.',
+                'Seeds planted, harvest abundant. Your work produced results.',
+                'Your code helps humanity. Impact scales.',
+                'Limits shattered. New records set. You\'re unstoppable.'
+            ],
+            frustrated: [
+                'The door is heavy, but it\'s starting to move. Keep pushing - breakthrough is near.',
+                'Release the energy. Channel your frustration into powerful, focused action.',
+                'The pressure you feel is creating cracks for light to enter. Change is coming.',
+                'The lock is stubborn, but persistence wins. Keep trying - it will turn.',
+                'Your intensity is power. Direct it with purpose and watch obstacles shatter.',
+                'What feels like destructive pressure is actually transformative force building.',
+                'Open your grip. Release the tension. There\'s light waiting inside your frustration.',
+                'Release the pressure safely. Let it out before you explode.',
+                'This pressure is creating something valuable. Diamonds form under stress.',
+                'There\'s always a way through. Keep looking - you\'ll find the door.',
+                'Patient persistence unravels any knot. One thread at a time.',
+                'Winter doesn\'t last forever. You\'re hearing the first cracks of spring.',
+                'Push through the pain. The breakthrough is on the other side.',
+                'Every crumpled attempt brings you closer to success.',
+                'The last piece is always the hardest. Then suddenly everything fits.',
+                'The pressure is breaking. Flow is returning.',
+                'The storm must gather before release. You\'re almost there.',
+                'The tension you feel is energy storing. Soon it releases forward.',
+                'You\'re past the worst. Clear road ahead.',
+                'Almost loaded. Patience just a moment longer.',
+                'You\'re past the hard part. The summit is close.',
+                'Focus your frustration. Direct it. Power through.',
+                'Expand. Breathe. Then let it go.',
+                'Compressed energy is about to bounce you forward.',
+                'One more turn. You\'ve almost got it.',
+                'Force plus persistence equals breakthrough.',
+                'You\'re at the tipping point. One more push.',
+                'Keep working it. It\'s loosening.',
+                'The blockage is clearing. Flow is returning.',
+                'Stuck becomes unstuck with enough determination.'
+            ],
+            hopeful: [
+                'Every sunrise is proof that darkness ends. Your dawn is breaking.',
+                'Even concrete can\'t stop growth when hope pushes through. You\'re unstoppable.',
+                'After every storm comes beauty. Your rainbow is forming now.',
+                'Your hope is a lighthouse guiding you through uncertainty to safe shores.',
+                'Beautiful transformations are happening. Your wings are forming.',
+                'The path ahead is opening up. Keep walking toward the light you see.',
+                'One by one, points of light appear. Hope illuminates even the darkest night.',
+                'Storm clouds are temporary. Sunshine waits behind them.',
+                'Life finds a way. Even deserts bloom when conditions align.',
+                'Magic exists. You\'re witnessing nature\'s light show of possibility.',
+                'Let your dreams soar. They\'re meant to fly.',
+                'The horizon always holds promise. Walk toward it.',
+                'One small light inspires another. Your hope spreads.',
+                'Connection is possible. Bridges can span any distance.',
+                'New days bring new light. Every sunrise is a fresh start.',
+                'Plant your hopes. Water them with action. Watch them grow.',
+                'Spring always follows winter. New growth is beginning.',
+                'Warmth melts the coldest freeze. Your thaw is coming.',
+                'Clarity emerges. The view was always there, waiting.',
+                'Even night has guidance. Follow the light you can see.',
+                'Small lights together create brilliance. You\'re not alone.',
+                'Fresh air, fresh perspective. Open yourself to possibility.',
+                'Darkness cannot withstand light. Let yours flood in.',
+                'Growth is constant. New beginnings emerge continuously.',
+                'Gaps close. Solutions emerge. Progress happens.',
+                'Your beacon shines through any fog. Keep it lit.',
+                'Rise above. Gain altitude. Perspective shifts everything.',
+                'First signs of spring. The change you hoped for is here.',
+                'Forward movement. The journey continues.',
+                'Step into the light. It\'s been waiting for you.'
+            ]
+        };
+
+        let currentSlide = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // SVG illustration generator for each theme
+        function createSVGIllustration(theme, index) {
+            const svgs = {
+                sunrise: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="sky${index}" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <animate attributeName="y1" values="100%;0%" dur="2s" fill="freeze"/>
+                                <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#fbbf24;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#fcd34d;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="300" fill="url(#sky${index})"/>
+                        <circle cx="200" cy="200" r="60" fill="#fbbf24" opacity="0">
+                            <animate attributeName="opacity" values="0;1" dur="2s" fill="freeze"/>
+                            <animate attributeName="cy" values="250;200" dur="2s" fill="freeze"/>
+                        </circle>
+                        <path d="M 0 220 Q 100 200 200 220 T 400 220 L 400 300 L 0 300 Z" fill="#374151" opacity="0.8"/>
+                        <path d="M 50 240 L 80 240 L 65 200 Z" fill="#1f2937"/>
+                        <path d="M 300 250 L 350 250 L 325 210 Z" fill="#1f2937"/>
+                    </svg>
+                `,
+                tree: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#cbd5e1"/>
+                        <ellipse cx="180" cy="100" rx="60" ry="40" fill="#64748b" opacity="0.6">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; -20 5; 0 0" dur="3s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <rect x="190" y="120" width="20" height="120" fill="#78350f">
+                            <animateTransform attributeName="transform" type="skewX" values="0; -5; 0" dur="3s" repeatCount="indefinite"/>
+                        </rect>
+                        <circle cx="200" cy="100" r="50" fill="#16a34a">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; -10 3; 0 0" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="180" cy="80" r="35" fill="#22c55e"/>
+                        <circle cx="220" cy="90" r="40" fill="#15803d"/>
+                        <path d="M 0 240 Q 100 235 200 240 T 400 240 L 400 300 L 0 300 Z" fill="#15803d"/>
+                        <line x1="50" y1="100" x2="100" y2="120" stroke="#64748b" stroke-width="3" opacity="0.7">
+                            <animate attributeName="x2" values="100;120;100" dur="2s" repeatCount="indefinite"/>
+                        </line>
+                    </svg>
+                `,
+                butterfly: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#dbeafe"/>
+                        <ellipse cx="200" cy="150" rx="8" ry="25" fill="#92400e"/>
+                        <ellipse cx="200" cy="140" r="6" fill="#78350f"/>
+                        <path d="M 200 150 Q 170 120 160 100 Q 150 80 170 80 Q 190 80 200 110 Z" fill="#a855f7">
+                            <animateTransform attributeName="transform" type="rotate" values="0 200 150; -20 200 150; 0 200 150" dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 200 150 Q 230 120 240 100 Q 250 80 230 80 Q 210 80 200 110 Z" fill="#a855f7">
+                            <animateTransform attributeName="transform" type="rotate" values="0 200 150; 20 200 150; 0 200 150" dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 200 150 Q 170 160 160 180 Q 150 200 170 200 Q 190 200 200 170 Z" fill="#c084fc">
+                            <animateTransform attributeName="transform" type="rotate" values="0 200 150; -15 200 150; 0 200 150" dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 200 150 Q 230 160 240 180 Q 250 200 230 200 Q 210 200 200 170 Z" fill="#c084fc">
+                            <animateTransform attributeName="transform" type="rotate" values="0 200 150; 15 200 150; 0 200 150" dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                        <circle cx="165" cy="95" r="3" fill="#fef3c7"/>
+                        <circle cx="235" cy="95" r="3" fill="#fef3c7"/>
+                        <path d="M 100 250 Q 150 240 200 245 T 300 245" stroke="#22c55e" stroke-width="3" fill="none"/>
+                        <circle cx="150" cy="242" r="4" fill="#3b82f6" opacity="0.6"/>
+                        <circle cx="250" cy="243" r="4" fill="#3b82f6" opacity="0.6"/>
+                    </svg>
+                `,
+                mountain: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#fef3c7"/>
+                        <path d="M 0 300 L 100 150 L 200 200 L 300 100 L 400 200 L 400 300 Z" fill="#78716c"/>
+                        <path d="M 100 150 L 150 100 L 200 150 Z" fill="#e7e5e4"/>
+                        <path d="M 300 100 L 330 80 L 360 110 Z" fill="#f5f5f4"/>
+                        <circle cx="320" cy="110" r="3" fill="#ef4444">
+                            <animate attributeName="cy" values="110;105;110" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <line x1="318" y1="110" x2="322" y2="110" stroke="#ef4444" stroke-width="2">
+                            <animate attributeName="y1" values="110;105;110" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="y2" values="110;105;110" dur="2s" repeatCount="indefinite"/>
+                        </line>
+                        <circle cx="50" cy="50" r="30" fill="#fbbf24" opacity="0.8"/>
+                    </svg>
+                `,
+                rocket: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#1e293b"/>
+                        <circle cx="180" cy="150" r="2" fill="white" opacity="0.8"/>
+                        <circle cx="220" cy="80" r="1.5" fill="white" opacity="0.6"/>
+                        <circle cx="100" cy="200" r="1" fill="white" opacity="0.7"/>
+                        <circle cx="320" cy="120" r="2" fill="white" opacity="0.8"/>
+                        <polygon points="200,80 180,140 220,140" fill="#ef4444">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 -50" dur="3s" fill="freeze"/>
+                        </polygon>
+                        <rect x="190" y="140" width="20" height="50" fill="#dc2626">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 -50" dur="3s" fill="freeze"/>
+                        </rect>
+                        <polygon points="180,190 200,170 220,190" fill="#f97316">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 -50" dur="3s" fill="freeze"/>
+                        </polygon>
+                        <ellipse cx="200" cy="200" rx="30" ry="15" fill="#fb923c" opacity="0.8">
+                            <animate attributeName="opacity" values="0.8;0.3;0.8" dur="0.5s" repeatCount="indefinite"/>
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 -50" dur="3s" fill="freeze"/>
+                        </ellipse>
+                        <ellipse cx="200" cy="215" rx="25" ry="12" fill="#fdba74" opacity="0.6">
+                            <animate attributeName="opacity" values="0.6;0.2;0.6" dur="0.4s" repeatCount="indefinite"/>
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 -50" dur="3s" fill="freeze"/>
+                        </ellipse>
+                    </svg>
+                `,
+                heart: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="heartGlow${index}">
+                                <stop offset="0%" style="stop-color:#fca5a5;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#fee2e2;stop-opacity:0" />
+                            </radGradient>
+                        </defs>
+                        <rect width="400" height="300" fill="#fef2f2"/>
+                        <circle cx="200" cy="150" r="100" fill="url(#heartGlow${index})" opacity="0.4">
+                            <animate attributeName="r" values="100;120;100" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <path d="M 200 180 C 200 180, 160 140, 160 110 C 160 85, 180 80, 200 100 C 220 80, 240 85, 240 110 C 240 140, 200 180, 200 180 Z" fill="#ef4444">
+                            <animate attributeName="d" values="M 200 180 C 200 180, 160 140, 160 110 C 160 85, 180 80, 200 100 C 220 80, 240 85, 240 110 C 240 140, 200 180, 200 180 Z;M 200 185 C 200 185, 158 138, 158 108 C 158 83, 178 78, 200 100 C 222 78, 242 83, 242 108 C 242 138, 200 185, 200 185 Z;M 200 180 C 200 180, 160 140, 160 110 C 160 85, 180 80, 200 100 C 220 80, 240 85, 240 110 C 240 140, 200 180, 200 180 Z" dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                        <circle cx="185" cy="115" r="5" fill="#fca5a5" opacity="0.6"/>
+                        <circle cx="215" cy="115" r="5" fill="#fca5a5" opacity="0.6"/>
+                    </svg>
+                `,
+                lighthouse: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#0c4a6e"/>
+                        <path d="M 0 250 Q 100 240 200 250 T 400 250 L 400 300 L 0 300 Z" fill="#1e40af" opacity="0.8">
+                            <animate attributeName="d" values="M 0 250 Q 100 240 200 250 T 400 250 L 400 300 L 0 300 Z;M 0 250 Q 100 260 200 250 T 400 250 L 400 300 L 0 300 Z;M 0 250 Q 100 240 200 250 T 400 250 L 400 300 L 0 300 Z" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                        <rect x="180" y="150" width="40" height="100" fill="#dc2626"/>
+                        <rect x="180" y="165" width="40" height="10" fill="#fee2e2"/>
+                        <rect x="180" y="190" width="40" height="10" fill="#fee2e2"/>
+                        <rect x="180" y="215" width="40" height="10" fill="#fee2e2"/>
+                        <polygon points="170,150 200,120 230,150" fill="#991b1b"/>
+                        <rect x="190" y="135" width="20" height="15" fill="#fef3c7"/>
+                        <path d="M 200 135 L 300 100 L 300 170 Z" fill="#fef08a" opacity="0">
+                            <animate attributeName="opacity" values="0;0.6;0" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                        <circle cx="80" cy="100" r="20" fill="#94a3b8" opacity="0.6">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 30 10; 0 0" dur="5s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                `,
+                candle: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#1e293b"/>
+                        <rect x="180" y="180" width="40" height="80" rx="5" fill="#fef3c7"/>
+                        <ellipse cx="200" cy="180" rx="22" ry="8" fill="#fde68a"/>
+                        <ellipse cx="200" cy="165" rx="15" ry="20" fill="#fbbf24" opacity="0.8">
+                            <animate attributeName="ry" values="20;25;20" dur="1s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="200" cy="150" rx="12" ry="18" fill="#fb923c" opacity="0.9">
+                            <animate attributeName="ry" values="18;23;18" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="rx" values="12;10;12" dur="1s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="200" cy="145" rx="8" ry="10" fill="#fef3c7">
+                            <animate attributeName="ry" values="10;14;10" dur="1s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <circle cx="250" cy="200" r="30" fill="#fbbf24" opacity="0.1">
+                            <animate attributeName="r" values="30;50;30" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.1;0.05;0.1" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                `,
+                lake: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#bfdbfe"/>
+                        <ellipse cx="200" cy="80" rx="50" ry="30" fill="#fbbf24" opacity="0.9"/>
+                        <path d="M 0 100 L 80 120 L 160 100 L 240 115 L 320 105 L 400 120 L 400 0 L 0 0 Z" fill="#dbeafe"/>
+                        <rect x="0" y="150" width="400" height="150" fill="#3b82f6" opacity="0.7"/>
+                        <ellipse cx="200" cy="150" rx="150" ry="5" fill="#1e40af" opacity="0.3"/>
+                        <path d="M 0 145 Q 100 150 200 145 T 400 145" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.5"/>
+                        <path d="M 50 160 Q 100 157 150 160" stroke="#93c5fd" stroke-width="1" fill="none" opacity="0.4"/>
+                        <path d="M 250 165 Q 300 162 350 165" stroke="#93c5fd" stroke-width="1" fill="none" opacity="0.4"/>
+                        <polygon points="100,200 80,250 120,250" fill="#166534"/>
+                        <polygon points="320,210 305,250 335,250" fill="#15803d"/>
+                    </svg>
+                `,
+                hands: `
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="glow${index}" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#fef3c7;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="300" fill="#1f2937"/>
+                        <ellipse cx="200" cy="150" rx="100" ry="80" fill="url(#glow${index})">
+                            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <path d="M 150 200 L 150 180 Q 150 150 170 140 L 180 145 L 185 150 L 190 148 L 195 155" stroke="#fcd34d" stroke-width="12" fill="none" stroke-linecap="round">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 -20" dur="2s" fill="freeze"/>
+                        </path>
+                        <path d="M 250 120 L 250 140 Q 250 170 230 180 L 220 175 L 215 170 L 210 172 L 205 165" stroke="#fcd34d" stroke-width="12" fill="none" stroke-linecap="round">
+                            <animateTransform attributeName="transform" type="translate" values="0 0; 0 20" dur="2s" fill="freeze"/>
+                        </path>
+                        <circle cx="200" cy="150" r="8" fill="#fef3c7" opacity="0">
+                            <animate attributeName="opacity" values="0;1;1" begin="2s" dur="1s" fill="freeze"/>
+                            <animate attributeName="r" values="8;30" begin="2s" dur="1s" fill="freeze"/>
+                        </circle>
+                    </svg>
+                `
+            };
+
+            const themeMap = {
+                dawn: 'sunrise',
+                sunrise: 'sunrise',
+                storm: 'tree',
+                tree: 'tree',
+                bend: 'tree',
+                roots: 'tree',
+                transform: 'butterfly',
+                butterfly: 'butterfly',
+                emerge: 'butterfly',
+                climb: 'mountain',
+                mountain: 'mountain',
+                peak: 'mountain',
+                reach: 'hands',
+                help: 'hands',
+                hand: 'hands',
+                support: 'hands',
+                rocket: 'rocket',
+                launch: 'rocket',
+                ignite: 'rocket',
+                start: 'rocket',
+                lighthouse: 'lighthouse',
+                light: 'lighthouse',
+                guide: 'lighthouse',
+                candle: 'candle',
+                flame: 'candle',
+                hope: 'candle',
+                lake: 'lake',
+                calm: 'lake',
+                peace: 'lake',
+                still: 'lake',
+                heart: 'heart',
+                love: 'heart',
+                care: 'heart',
+                frustrat: 'rocket',
+                push: 'mountain',
+                block: 'mountain',
+                stuck: 'tree',
+                hopeful: 'sunrise',
+                rainbow: 'sunrise',
+                bright: 'sunrise',
+                future: 'sunrise'
+            };
+
+            // Find matching theme
+            let selectedSVG = svgs.sunrise; // default
+            for (let [keyword, svgKey] of Object.entries(themeMap)) {
+                if (theme.toLowerCase().includes(keyword)) {
+                    selectedSVG = svgs[svgKey];
+                    break;
+                }
+            }
+
+            return selectedSVG;
+        }
+
+        async function generateCarouselImages(feeling) {
+            const track = document.getElementById('carousel-track');
+            const dotsContainer = document.getElementById('carousel-dots');
+            
+            const prompts = extendedPrompts[feeling] || extendedPrompts.encouragement;
+            const captions = extendedCaptions[feeling] || extendedCaptions.encouragement;
+            
+            // Select 5-7 random images for carousel
+            const numSlides = 5 + Math.floor(Math.random() * 3); // 5 to 7
+            const selectedIndices = [];
+            while (selectedIndices.length < numSlides) {
+                const randomIndex = Math.floor(Math.random() * prompts.length);
+                if (!selectedIndices.includes(randomIndex)) {
+                    selectedIndices.push(randomIndex);
+                }
+            }
+
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            // Generate slides with SVG illustrations
+            for (let i = 0; i < selectedIndices.length; i++) {
+                const index = selectedIndices[i];
+                const prompt = prompts[index];
+                const caption = captions[index];
+                
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'carousel-slide';
+                
+                // Create SVG illustration based on prompt keywords
+                const svgIllustration = createSVGIllustration(prompt, i);
+                
+                slideDiv.innerHTML = `
+                    <div class="svg-container">${svgIllustration}</div>
+                    <div class="carousel-caption">${caption}</div>
+                `;
+                
+                track.appendChild(slideDiv);
+                
+                // Create dot
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+
+            // Add touch support
+            track.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            track.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+        }
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                previousSlide();
+            }
+        }
+
+        function nextSlide() {
+            const track = document.getElementById('carousel-track');
+            const slides = track.children;
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateCarousel();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateCarousel();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const track = document.getElementById('carousel-track');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function confirmAction() {
+            const feedbackMessages = [
+                {
+                    emoji: '🎉',
+                    title: 'Well Done!',
+                    message: 'You took action! That\'s huge! Every small step forward is a victory. You\'re showing up for yourself, and that takes real courage. Keep this momentum going - you\'re doing amazing!'
+                },
+                {
+                    emoji: '⭐',
+                    title: 'Incredible!',
+                    message: 'Look at you taking charge! You didn\'t just read about what to do - you actually did it. That\'s the difference between hoping and healing. You should be proud of yourself!'
+                },
+                {
+                    emoji: '💪',
+                    title: 'You\'re Awesome!',
+                    message: 'Yes! You took action when it mattered most. That\'s strength. That\'s growth. That\'s you being absolutely amazing. Keep building on this - you\'ve got what it takes!'
+                },
+                {
+                    emoji: '🌟',
+                    title: 'Fantastic Job!',
+                    message: 'You did it! Taking even one action can shift your entire day. You\'re proving to yourself that you have the power to make positive changes. Keep going - you\'re on the right path!'
+                },
+                {
+                    emoji: '🚀',
+                    title: 'Way to Go!',
+                    message: 'That\'s what I\'m talking about! You took action and that\'s everything. You\'re not just surviving, you\'re actively working on thriving. This is how change happens - one brave step at a time!'
+                },
+                {
+                    emoji: '✨',
+                    title: 'Brilliant!',
+                    message: 'You\'re a rockstar! Taking action, especially when things are tough, is the ultimate form of self-care. You chose to help yourself, and that\'s beautiful. Keep nurturing that strength!'
+                }
+            ];
+
+            const feedback = getRandomItem(feedbackMessages);
+            const feedbackDiv = document.getElementById('action-feedback');
+            const actionBtn = document.getElementById('action-complete-btn');
+
+            feedbackDiv.innerHTML = `
+                <span class="emoji">${feedback.emoji}</span>
+                <h4>${feedback.title}</h4>
+                <p>${feedback.message}</p>
+            `;
+            
+            feedbackDiv.classList.remove('hidden');
+            actionBtn.style.display = 'none';
+
+            // Scroll to feedback smoothly
+            feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function toggleAudio() {
+            const bubble = document.getElementById('floating-audio');
+            const icon = document.getElementById('bubble-icon');
+
+            if (isPlaying) {
+                speechSynthesis.cancel();
+                icon.textContent = '🎧';
+                if (bubble) bubble.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                const response = window.currentResponse;
+                const customFeeling = document.getElementById('custom-feeling').value.trim();
+
+                let textToSpeak = `Here's your personal boost. ${response.message}. `;
+                
+                if (customFeeling) {
+                    textToSpeak += `You shared: ${customFeeling}. Thank you for opening up. `;
+                }
+
+                textToSpeak += `Remember this quote: ${response.quote.text} by ${response.quote.author}. `;
+                textToSpeak += `Here are some actions you can take: `;
+                response.actions.forEach((action, index) => {
+                    textToSpeak += `${index + 1}. ${action}. `;
+                });
+
+                currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
+                currentUtterance.rate = 0.9;
+                currentUtterance.pitch = 1;
+                currentUtterance.volume = 1;
+
+                currentUtterance.onstart = function() {
+                    icon.textContent = '⏸️';
+                    if (bubble) bubble.classList.add('playing');
+                    isPlaying = true;
+                };
+
+                currentUtterance.onend = function() {
+                    icon.textContent = '🎧';
+                    if (bubble) bubble.classList.remove('playing');
+                    isPlaying = false;
+                };
+
+                speechSynthesis.speak(currentUtterance);
+            }
+        }
+
+        function showFloatingAudioBubble() {
+            // Remove existing bubble if any
+            const existingBubble = document.getElementById('floating-audio');
+            if (existingBubble) {
+                existingBubble.remove();
+            }
+
+            // Create new bubble
+            const bubble = document.createElement('div');
+            bubble.id = 'floating-audio';
+            bubble.className = 'floating-audio-bubble';
+            bubble.onclick = toggleAudio;
+            bubble.innerHTML = `
+                <span class="icon" id="bubble-icon">🎧</span>
+                <div class="audio-tooltip">Tap to listen</div>
+            `;
+            document.body.appendChild(bubble);
+        }
+
+        function hideFloatingAudioBubble() {
+            const bubble = document.getElementById('floating-audio');
+            if (bubble) {
+                if (isPlaying) {
+                    speechSynthesis.cancel();
+                    isPlaying = false;
+                }
+                bubble.remove();
+            }
+        }
+
+        function goBack() {
+            if (isPlaying) {
+                speechSynthesis.cancel();
+                isPlaying = false;
+            }
+            
+            // Hide floating audio bubble
+            hideFloatingAudioBubble();
+            
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('input-section').classList.remove('hidden');
+            document.getElementById('custom-feeling').value = '';
+            document.querySelectorAll('.feeling-btn').forEach(b => b.classList.remove('selected'));
+            selectedFeeling = null;
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Stop audio if user navigates away
+        window.addEventListener('beforeunload', function() {
+            if (isPlaying) {
+                speechSynthesis.cancel();
+            }
+        });
+    </script>
+</body>
+</html>

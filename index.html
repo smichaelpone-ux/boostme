@@ -125,27 +125,6 @@
             border-color: #667eea;
         }
 
-        .custom-input-section {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e7ff;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            resize: vertical;
-            min-height: 80px;
-            transition: border-color 0.3s ease;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
         .submit-btn {
             width: 100%;
             padding: 16px;
@@ -599,11 +578,6 @@
                     </button>
                 </div>
 
-                <div class="custom-input-section">
-                    <h2 class="section-title">Or tell us more about how you&apos;re feeling</h2>
-                    <textarea id="custom-feeling" placeholder="Share what's on your mind... (optional)"></textarea>
-                </div>
-
                 <button class="submit-btn" onclick="generateBoost()">Get My Boost 🚀</button>
             </div>
 
@@ -948,10 +922,10 @@
         };
 
         function generateBoost() {
-            const customFeeling = document.getElementById('custom-feeling').value.trim();
+            const customFeeling = ''; // Removed custom input option
             
-            if (!selectedFeeling && !customFeeling) {
-                alert('Please select a feeling or tell us how you\'re feeling!');
+            if (!selectedFeeling) {
+                alert('Please select a feeling!');
                 return;
             }
 
@@ -987,7 +961,6 @@
                 <div class="result-card">
                     <h3><span class="emoji">${response.emoji}</span> ${oneLiner}</h3>
                     <p>${response.message}</p>
-                    ${customFeeling ? `<p style="margin-top: 15px; padding: 15px; background: white; border-radius: 10px;"><strong>You shared:</strong> "${customFeeling}"<br><br>Thank you for opening up. Your feelings are valid and acknowledged.</p>` : ''}
                 </div>
 
                 <div class="result-card">
@@ -1056,13 +1029,9 @@
                 isPlaying = false;
             } else {
                 const response = window.currentResponse;
-                const customFeeling = document.getElementById('custom-feeling').value.trim();
+                const customFeeling = ''; // Removed custom input option
 
                 let textToSpeak = `Here's your personal boost. ${response.message}. `;
-                
-                if (customFeeling) {
-                    textToSpeak += `You shared: ${customFeeling}. Thank you for opening up. `;
-                }
 
                 textToSpeak += `Remember this quote: ${response.quote.text} by ${response.quote.author}. `;
                 textToSpeak += `Here are some actions you can take: `;
@@ -2144,13 +2113,9 @@
                 isPlaying = false;
             } else {
                 const response = window.currentResponse;
-                const customFeeling = document.getElementById('custom-feeling').value.trim();
+                const customFeeling = ''; // Removed custom input option
 
                 let textToSpeak = `Here's your personal boost. ${response.message}. `;
-                
-                if (customFeeling) {
-                    textToSpeak += `You shared: ${customFeeling}. Thank you for opening up. `;
-                }
 
                 textToSpeak += `Remember this quote: ${response.quote.text} by ${response.quote.author}. `;
                 textToSpeak += `Here are some actions you can take: `;
@@ -2220,7 +2185,6 @@
             
             document.getElementById('result-section').style.display = 'none';
             document.getElementById('input-section').classList.remove('hidden');
-            document.getElementById('custom-feeling').value = '';
             document.querySelectorAll('.feeling-btn').forEach(b => b.classList.remove('selected'));
             selectedFeeling = null;
             
